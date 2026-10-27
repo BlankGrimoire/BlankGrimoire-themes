@@ -18,7 +18,9 @@ matching theme automatically.
 
 In BlankGrimoire, open **Settings → Adapter Repositories** and add:
 
-https://<your-pages-domain>/index.json
+```text
+https://YOUR-PAGES-DOMAIN/index.json
+```
 
 Bundles are signed with Ed25519; the app verifies every update.
 
