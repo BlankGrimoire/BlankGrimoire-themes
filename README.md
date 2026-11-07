@@ -14,6 +14,23 @@ matching theme automatically.
 | `theme.themesia` | Themesia-family WordPress themes | 📋 Planned |
 | `theme.spa-hydration` | Next.js / Nuxt sites exposing hydration data | 📋 Planned |
 
+## Development
+
+Requirements: Node 22 and pnpm 9.
+
+```bash
+pnpm install
+pnpm lint
+pnpm build
+pnpm typecheck
+pnpm test
+```
+
+Adapters are developed as independent packages under [`themes/`](./themes/).
+Each package owns its version, synthetic fixtures, tests, and build output.
+The packages consume the published SDK from npm; the iOS app later consumes
+the signed adapter bundles and repository index, not npm packages directly.
+
 ## Installing in the app
 
 In BlankGrimoire, open **Settings → Adapter Repositories** and add:
