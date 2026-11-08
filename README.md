@@ -11,7 +11,7 @@ matching theme automatically.
 | Adapter | Covers | Status |
 |---|---|---|
 | `theme.wp-manga` | WordPress content themes | ✅ Implemented, pending release |
-| `theme.themesia` | Themesia-family WordPress themes | 📋 Planned |
+| `theme.themesia` | Themesia-family WordPress themes | ✅ Implemented, pending release |
 | `theme.spa-hydration` | Next.js / Nuxt sites exposing hydration data | 📋 Planned |
 
 ## Development
