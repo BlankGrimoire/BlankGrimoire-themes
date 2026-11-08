@@ -25,6 +25,26 @@ const adapters = [
     id: 'theme.spa-hydration',
     name: 'SPA Hydration Theme',
   },
+  {
+    directory: 'wp-madara',
+    id: 'wp-madara',
+    name: 'WordPress Madara',
+  },
+  {
+    directory: 'wp-mangastream',
+    id: 'wp-mangastream',
+    name: 'WordPress MangaStream',
+  },
+  {
+    directory: 'static-advanced',
+    id: 'static-advanced',
+    name: 'Static Advanced',
+  },
+  {
+    directory: 'spa-nextjs',
+    id: 'spa-nextjs',
+    name: 'SPA Next.js',
+  },
 ];
 
 function requiredEnvironment(name) {

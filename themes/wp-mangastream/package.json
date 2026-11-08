@@ -1,0 +1,31 @@
+{
+  "name": "@blankgrimoire/theme-wp-mangastream",
+  "version": "1.0.0",
+  "description": "WordPress MangaStream Theme Adapter - Generic adapter for sites using the MangaStream WordPress theme with static HTML chapters and JSON reader.",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "fixtures",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json && node scripts/build-bundle.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json",
+    "test": "vitest run",
+    "manifest": "pnpm build && node scripts/build-manifest.mjs"
+  },
+  "dependencies": {
+    "@blankgrimoire/types": "1.0.1"
+  },
+  "devDependencies": {
+    "@blankgrimoire/cli": "1.0.1",
+    "@blankgrimoire/runtime": "1.0.1",
+    "@blankgrimoire/testing": "1.0.1",
+    "@types/node": "^22.10.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}
