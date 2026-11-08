@@ -4,34 +4,100 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version bump (patch|minor|major)'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write   # needed to create tag
   pages: write
   id-token: write
 
 jobs:
-  publish:
+  build-and-publish:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: pnpm/action-setup@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: pnpm
 
-      - run: pnpm install --frozen-lockfile
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Determine next version
+        id: version
+        run: |
+          # Get current highest theme-v* tag
+          CURRENT_TAG=$(git tag -l 'theme-v*' --sort=-v:refname | head -n1 || echo 'theme-v0.0.0')
+          CURRENT_VERSION=${CURRENT_TAG#theme-v}
+          
+          # Parse major.minor.patch
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$CURRENT_VERSION"
+          
+          # Determine bump type
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            BUMP="${{ github.event.inputs.version }}"
+          else
+            # Auto-detect from commit messages since last tag
+            COMMITS=$(git log ${CURRENT_TAG}..HEAD --oneline --pretty=format:"%s" 2>/dev/null || git log --oneline --pretty=format:"%s")
+            if echo "$COMMITS" | grep -qiE '^feat!|^fix!|^BREAKING CHANGE'; then
+              BUMP="major"
+            elif echo "$COMMITS" | grep -qiE '^feat'; then
+              BUMP="minor"
+            else
+              BUMP="patch"
+            fi
+          fi
+          
+          # Calculate new version
+          case "$BUMP" in
+            major) MAJOR=$((MAJOR + 1)); MINOR=0; PATCH=0 ;;
+            minor) MINOR=$((MINOR + 1)); PATCH=0 ;;
+            patch) PATCH=$((PATCH + 1)) ;;
+          esac
+          
+          NEW_VERSION="${MAJOR}.${MINOR}.${PATCH}"
+          NEW_TAG="theme-v${NEW_VERSION}"
+          
+          echo "current_tag=$CURRENT_TAG" >> $GITHUB_OUTPUT
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "new_tag=$NEW_TAG" >> $GITHUB_OUTPUT
+          echo "bump=$BUMP" >> $GITHUB_OUTPUT
+          echo "Current: $CURRENT_TAG → New: $NEW_TAG (bump: $BUMP)"
+
+      - name: Create and push tag
+        if: steps.version.outputs.new_tag != ''
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag ${{ steps.version.outputs.new_tag }}
+          git push origin ${{ steps.version.outputs.new_tag }}
 
       - name: Build, sign, and validate publication
         run: pnpm publish:build
@@ -39,11 +105,20 @@ jobs:
           BLANKGRIMOIRE_PRIVATE_KEY: ${{ secrets.BLANKGRIMOIRE_PRIVATE_KEY }}
           BLANKGRIMOIRE_PUBLIC_KEY: ${{ vars.BLANKGRIMOIRE_PUBLIC_KEY }}
 
-      - uses: actions/configure-pages@v5
+      - name: Verify index.json structure
+        run: |
+          cat public/index.json | jq -e '.extensions | length > 0'
+          cat public/index.json | jq -e '.publicKey | startswith("ed25519:")'
+          cat public/index.json | jq -e '.name == "BlankGrimoire Themes"'
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: public
 
-      - id: deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4
