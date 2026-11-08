@@ -11,9 +11,12 @@
     "build": "pnpm -r build",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
-    "lint": "node scripts/check-hygiene.mjs"
+    "lint": "node scripts/check-hygiene.mjs",
+    "publish:build": "pnpm build && node scripts/publish.mjs",
+    "publish:check": "pnpm build && node scripts/publish-check.mjs"
   },
   "devDependencies": {
+    "@blankgrimoire/cli": "1.0.1",
     "@types/node": "^22.10.0",
     "typescript": "^5.6.0"
   }
