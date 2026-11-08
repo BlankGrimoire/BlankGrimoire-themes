@@ -1,0 +1,8 @@
+{
+  "metaGenerator": "^SPA Hydration Theme",
+  "selectors": [
+    ".spa-reader",
+    ".spa-chapter-list"
+  ],
+  "minScore": 7
+}
