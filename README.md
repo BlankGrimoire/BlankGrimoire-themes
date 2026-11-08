@@ -31,6 +31,14 @@ Each package owns its version, synthetic fixtures, tests, and build output.
 The packages consume the published SDK from npm; the iOS app later consumes
 the signed adapter bundles and repository index, not npm packages directly.
 
+## Publishing
+
+The `main` branch workflow publishes signed adapter bundles to GitHub Pages.
+It requires the `BLANKGRIMOIRE_PRIVATE_KEY` GitHub Actions secret and the
+`BLANKGRIMOIRE_PUBLIC_KEY` repository variable in `ed25519:BASE64` format.
+Run `pnpm publish:check` locally to build and validate the complete static
+publication using an ephemeral key pair.
+
 ## Installing in the app
 
 In BlankGrimoire, open **Settings → Adapter Repositories** and add:
