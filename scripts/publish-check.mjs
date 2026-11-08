@@ -17,7 +17,7 @@ const publication = await createPublication({
 });
 const index = JSON.parse(await readFile(`${publication.outputDirectory}/index.json`, 'utf8'));
 
-if (index.extensions.length !== 3 || index.publicKey !== repositoryKey) {
+if (index.extensions.length !== 7 || index.publicKey !== repositoryKey) {
   throw new Error('Publication index validation failed');
 }
 
