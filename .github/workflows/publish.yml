@@ -55,10 +55,20 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      - name: Create GitHub App token
+        id: release-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: BlankGrimoire
+          repositories: BlankGrimoire-themes
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.release-token.outputs.token }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -79,7 +89,7 @@ jobs:
           commit-message: 'chore: version theme adapters'
           pr-title: 'chore: version theme adapters'
           create-github-releases: 'false'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.release-token.outputs.token }}
 
   publish:
     needs: prepare
@@ -90,10 +100,20 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Create GitHub App token
+        id: release-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: BlankGrimoire
+          repositories: BlankGrimoire-themes
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.release-token.outputs.token }}
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
