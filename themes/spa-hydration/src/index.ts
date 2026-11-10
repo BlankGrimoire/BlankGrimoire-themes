@@ -5,7 +5,7 @@ import { defineTheme } from '@blankgrimoire/types';
 export default defineTheme({
   id: 'theme.spa-hydration',
   name: 'SPA Hydration Theme',
-  version: '1.0.0',
+  version: '__ADAPTER_VERSION__',
   detectionSignature: {
     metaGenerator: '^SPA Hydration Theme',
     selectors: ['.spa-reader', '.spa-chapter-list'],

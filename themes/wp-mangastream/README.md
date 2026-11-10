@@ -1,12 +1,13 @@
-# WordPress MangaStream Theme Adapter
+# `theme.wp-mangastream`
 
 **Package**: `@blankgrimoire/theme-wp-mangastream`
-**Version**: 1.0.0
+**Version**: managed by Changesets
 **API Version**: 1
 
 ## Overview
 
-Generic adapter for websites using the **MangaStream WordPress theme**. This theme is widely used by content aggregation sites and provides a consistent structure with static HTML chapters and JSON-based reader.
+Generic adapter for WordPress sites that expose a static chapter list and a
+JSON-based reader. It targets a reusable theme family, not individual sites.
 
 ## Supported Features
 
@@ -21,7 +22,7 @@ Generic adapter for websites using the **MangaStream WordPress theme**. This the
 
 ## Detection
 
-The adapter detects MangaStream themes using:
+The adapter detects this chapter-theme family using:
 
 - Meta generator tag: `<meta name="generator" content="WordPress">`
 - CSS selectors: `.listupd`, `#chapterlist`, `#readerarea`
@@ -69,44 +70,12 @@ Minimum detection score: **6**
   - **Src Attributes**: `data-src`, `data-lazy-src`, `data-original`, `src`
   - **Primary**: JSON extraction from `ts_reader.run({...})` script tag
 
-## Installation
+## Distribution
 
-```bash
-pnpm add @blankgrimoire/theme-wp-mangastream
-```
-
-## Usage
-
-```typescript
-import { WpMangaStreamAdapter } from '@blankgrimoire/theme-wp-mangastream';
-
-const adapter = new WpMangaStreamAdapter('https://example.org', requestHandler);
-
-// Search
-const results = await adapter.search('one piece', 1);
-
-// Latest updates
-const latest = await adapter.fetchLatestUpdates(1);
-
-// Series details
-const details = await adapter.fetchMangaDetails('one-piece');
-
-// Chapters (static HTML parsing)
-const chapters = await adapter.fetchChapters('one-piece');
-
-// Pages (extracts from ts_reader.run() JSON)
-const pages = await adapter.fetchPages('one-piece/chapter-1090');
-```
-
-## Reader JSON Extraction
-
-The adapter extracts page URLs from the `ts_reader.run()` JavaScript function call found in script tags on the reader page:
-
-```javascript
-ts_reader.run({"sources":[{"images":["url1.jpg","url2.jpg",...]}]});
-```
-
-The adapter uses regex to extract and parse this JSON, providing a robust method for getting page URLs without parsing lazy-loaded images.
+This package is private to the monorepo and is not published to npm. The
+release workflow builds and signs the bundle and publishes it through the
+repository index on GitHub Pages. The app consumes the signed bundle, not the
+TypeScript package.
 
 ## Development
 

@@ -1,7 +1,12 @@
 {
   "name": "@blankgrimoire/theme-wp-manga",
   "version": "1.0.0",
+  "private": true,
   "description": "Declarative adapter for a WordPress content theme family.",
+  "blankgrimoire": {
+    "adapterId": "theme.wp-manga",
+    "adapterName": "WordPress Content Theme"
+  },
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
@@ -12,10 +17,10 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json && node scripts/build-bundle.mjs",
+    "build": "tsc -p tsconfig.json && node ../../scripts/build-adapter-bundle.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json",
     "test": "vitest run",
-    "manifest": "pnpm build && node scripts/build-manifest.mjs"
+    "manifest": "pnpm build && node ../../scripts/build-adapter-manifest.mjs"
   },
   "dependencies": {
     "@blankgrimoire/types": "1.0.1"

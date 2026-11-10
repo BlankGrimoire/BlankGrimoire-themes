@@ -1,7 +1,7 @@
-# WordPress Madara Theme Adapter
+# `theme.wp-madara`
 
 **Package**: `@blankgrimoire/theme-wp-madara`
-**Version**: 1.0.0
+**Version**: managed by Changesets
 **API Version**: 1
 
 ## Overview
@@ -72,56 +72,12 @@ Minimum detection score: **7**
   - CSS: `.reading-content img, .page-break img, .page img`
   - **Src Attributes**: `data-src`, `data-lazy-src`, `data-original`, `src`
 
-## Installation
+## Distribution
 
-```bash
-pnpm add @blankgrimoire/theme-wp-madara
-```
-
-## Usage
-
-```typescript
-import { WpMadaraAdapter } from '@blankgrimoire/theme-wp-madara';
-
-const adapter = new WpMadaraAdapter('https://example.org', requestHandler);
-
-// Search
-const results = await adapter.search('one piece', 1);
-
-// Latest updates
-const latest = await adapter.fetchLatestUpdates(1);
-
-// Series details
-const details = await adapter.fetchMangaDetails('one-piece');
-
-// Chapters (fetches via AJAX)
-const chapters = await adapter.fetchChapters('one-piece');
-
-// Pages for a chapter
-const pages = await adapter.fetchPages('one-piece/chapter-1090');
-```
-
-## Internal Series ID Extraction
-
-The adapter automatically extracts the internal WordPress post ID from the series detail page using multiple strategies:
-
-1. Hidden inputs: `input[name="manga_id"]`, `input[name="post_id"]`
-2. Data attributes: `[data-manga-id]`, `[data-post]`, `[data-id]`
-3. JavaScript variables: `manga_id`, `post_id` in script tags
-3. Meta tags: `meta[property="manga:id"]`
-
-## Configuration
-
-The adapter supports `selectorOverrides` for customizing selectors per-site:
-
-```typescript
-const adapter = new WpMadaraAdapter('https://example.org', requestHandler, {
-  selectorOverrides: {
-    search: { item: '.custom-search-item' },
-    details: { title: '.custom-title' }
-  }
-});
-```
+This package is private to the monorepo and is not published to npm. The
+release workflow builds and signs the bundle and publishes it through the
+repository index on GitHub Pages. The app consumes the signed bundle, not the
+TypeScript package.
 
 ## Development
 

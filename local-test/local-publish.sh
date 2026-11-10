@@ -1,5 +1,5 @@
 #!/bin/bash
-# SPDX-License-Identifier: MPL-2.0
+# SPDX-License-Identifier: MIT
 # Local test script for building, signing, and publishing theme adapters.
 # Reuses a local Ed25519 key, builds adapters, signs bundles, and serves the
 # result over plain HTTP or local HTTPS.
@@ -95,10 +95,7 @@ echo "🔑 Signing key:"
 echo "  Public: ${PUBLIC_KEY_B64:0:20}..."
 
 echo "🔨 Building themes..."
-pnpm build
-
-echo "📦 Publishing locally..."
-node scripts/publish.mjs
+pnpm publish:build
 
 echo "✅ Done! Files in ./public:"
 ls -la public/
@@ -147,8 +144,9 @@ INDEX_URL="$SCHEME://localhost:$PORT/index.json"
 
 # Verify server is up. `-k` keeps the Mac from needing the mkcert CA in its
 # system trust store; the iOS Simulator gets the CA through simctl below.
-if curl -sk "$INDEX_URL" | jq -e '.extensions | length == 7' > /dev/null; then
-    echo "✅ Local server verified (7 adapters)"
+ADAPTER_COUNT=$(curl -sk "$INDEX_URL" | jq '.extensions | length')
+if [[ -n "$ADAPTER_COUNT" && "$ADAPTER_COUNT" -gt 0 ]]; then
+    echo "✅ Local server verified ($ADAPTER_COUNT adapters)"
 else
     echo "❌ Server verification failed"
     kill $SERVER_PID 2>/dev/null
@@ -164,7 +162,7 @@ if [ "$USE_NGROK" = true ]; then
     # Check ngrok auth
     if ! ngrok config check >/dev/null 2>&1; then
         echo "⚠️  ngrok not authenticated. Run: ngrok config add-authtoken <YOUR_TOKEN>"
-        echo "   Get token at: https://dashboard.ngrok.com/get-started/your-authtoken"
+        echo "   Get the token from your ngrok account dashboard."
         USE_NGROK=false
     fi
 
