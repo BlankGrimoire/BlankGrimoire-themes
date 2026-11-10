@@ -20,10 +20,10 @@ Nessun riferimento a siti reali nel codice/repo. Solo `example.org` in fixture e
 
 | Pattern | Adapter | Siti Rappresentativi | Tecnologia Chiave |
 |---------|---------|---------------------|-------------------|
-| **WP Madara** | `wp-madara` | ezmanga, violetmanga | WP + Madara Theme, AJAX chapters via `admin-ajax.php` |
-| **WP MangaStream** | `wp-mangastream` | luacomic, valirscans, rokaricomics | WP + MangaStream Theme, Static HTML + JSON reader (`ts_reader.run()`) |
-| **Static Advanced** | `static-advanced` | manganato | HTML statico, classi specifiche, Referer header obbligatorio |
-| **SPA Next.js** | `spa-nextjs` | asurascans | Next.js hydration (`__NEXT_DATA__`), Cloudflare alto |
+| **WP Madara** | `wp-madara` | Site B, Site F | WP + Madara Theme, AJAX chapters via `admin-ajax.php` |
+| **WP MangaStream** | `wp-mangastream` | Site D, Site E, Site G | WP + MangaStream Theme, Static HTML + JSON reader (`ts_reader.run()`) |
+| **Static Advanced** | `static-advanced` | Site C | HTML statico, classi specifiche, Referer header obbligatorio |
+| **SPA Next.js** | `spa-nextjs` | Site A | Next.js hydration (`__NEXT_DATA__`), Cloudflare alto |
 
 ---
 
@@ -153,7 +153,7 @@ export interface Genre {
 
 ### 4.1 `wp-madara` — WordPress + Madara Theme
 
-**Siti target**: ezmanga, violetmanga (pattern Madara diffuso su decine di siti)
+**Siti target**: Site B, Site F (pattern Madara diffuso su decine di siti)
 
 #### Pattern Chiave Estesi
 | Fase | Selettore/Endpoint | Note |
@@ -191,7 +191,7 @@ buildCatalogUrl(type: 'latest' | 'popular', page: number): string {
 
 ### 4.2 `wp-mangastream` — WordPress + MangaStream Theme
 
-**Siti target**: luacomic, valirscans, rokaricomics (3 confermati + molti fork)
+**Siti target**: Site D, Site E, Site G (3 confermati + molti fork)
 
 #### Pattern Chiave Estesi
 | Fase | Selettore/Endpoint | Note |
@@ -229,7 +229,7 @@ buildCatalogUrl(type: 'latest' | 'popular', page: number): string {
 
 ### 4.3 `static-advanced` — Static HTML + Referer Header
 
-**Siti target**: manganato (pattern custom stabile)
+**Siti target**: Site C (pattern custom stabile)
 
 #### Pattern Chiave Estesi
 | Fase | Selettore/Endpoint | Note |
@@ -254,8 +254,8 @@ buildCatalogUrl(type: 'latest' | 'popular', page: number): string {
 #### Referer Header Policy
 ```typescript
 headers: {
-  "Referer": "https://manganato.gg/",
-  "Origin": "https://manganato.gg"
+  "Referer": "https://site-c.example.org/",
+  "Origin": "https://site-c.example.org"
 }
 ```
 
@@ -273,7 +273,7 @@ headers: {
 
 ### 4.4 `spa-nextjs` — Next.js Hydration (`__NEXT_DATA__`)
 
-**Siti target**: asurascans (Next.js + Tailwind, dominio mutevole)
+**Siti target**: Site A (Next.js + Tailwind, dominio mutevole)
 
 #### Pattern Chiave Estesi
 | Fase | Fonte Dati | Note |
@@ -304,7 +304,7 @@ buildCatalogUrl(type: 'latest' | 'popular', page: number): string {
 
 #### Cloudflare: **Alto** (Turnstile frequente, dominio mutevole)
 - Richiede WKWebView **visibile** per challenge Turnstile
-- Dominio cambia: asurascans.com → asuracomic.net → ecc.
+- Dominio cambia: site-a.example.org → site-a-alt.example.org → ecc.
 - Strategy: detection su `__NEXT_DATA__` + challenge visibile lato iOS
 
 ---
@@ -532,7 +532,7 @@ public final class CatalogViewModel {
 | **Regex `ts_reader.run()` fragile** | `wp-mangastream` | Alto | Fallback CSS selectors; test su fixture varianti |
 | **Referer header non rispettato da fetch** | `static-advanced` | Alto | Config `PluginRequestHandler` con policy per dominio |
 | **Cloudflare Turnstile blocca fetch** | `spa-nextjs`, `wp-madara` | Alto | WKWebView **visibile** lato iOS per challenge; adapter rileva challenge e segnala |
-| **Dominio mutevole (asurascans → asuracomic)** | `spa-nextjs` | Medio | Detection su pattern `__NEXT_DATA__`, non dominio |
+| **Dominio mutevole (Site A → Site A (mirror))** | `spa-nextjs` | Medio | Detection su pattern `__NEXT_DATA__`, non dominio |
 | **ID manga non standard in detail page** | `wp-madara` | Medio | Multiple strategie estrazione: `data-post`, `input[name="manga_id"]`, `data-id` |
 | **Lazy-load immagini multi-attr** | `wp-madara`, `wp-mangastream` | Basso | Fallback chain: `data-src` → `data-lazy-src` → `src` |
 | **JSON `ts_reader.run()` formato mutevole** | `wp-mangastream` | Medio | Schema validation + fallback CSS |

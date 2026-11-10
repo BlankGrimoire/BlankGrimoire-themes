@@ -7,13 +7,13 @@ Creare adapter generici che coprano i pattern comuni dei 7 siti target, senza es
 
 | Sito | Pattern Probabile | Note |
 |------|-------------------|------|
-| asurascans.com | CMS custom / WordPress variant | Cloudflare probabile |
-| ezmanga.org | Static HTML / Simple CMS | Selettori CSS standard |
-| manganato.gg | Platform nota (MangaNato) | Struttura nota, AJAX per capitoli |
-| luacomic.org | Sconosciuto | Da analizzare |
-| valirscans.org | Scanlation site custom | Cloudflare probabile |
-| violetmanga.com | Sconosciuto | Da analizzare |
-| rokaricomics.com | Sconosciuto | Da analizzare |
+| site-a.example.org | CMS custom / WordPress variant | Cloudflare probabile |
+| site-b.example.org | Static HTML / Simple CMS | Selettori CSS standard |
+| site-c.example.org | Platform nota (generic platform) | Struttura nota, AJAX per capitoli |
+| site-d.example.org | Sconosciuto | Da analizzare |
+| site-e.example.org | Scanlation site custom | Cloudflare probabile |
+| site-f.example.org | Sconosciuto | Da analizzare |
+| site-g.example.org | Sconosciuto | Da analizzare |
 
 ## Pattern Comuni Identificati
 
@@ -48,12 +48,12 @@ Creare adapter generici che coprano i pattern comuni dei 7 siti target, senza es
 
 ### A. `theme-static-css` — **Base universale**
 **Copia/estende** logica CSS selectors puri
-- Target: ezmanga.org, siti statici semplici
+- Target: site-b.example.org, siti statici semplici
 - Strategie: solo CSS per tutto
 - Configurabile via `selectorOverrides` utente
 
 ### B. `theme-ajax-chapters` — **Capitoli via AJAX**
-- Target: manganato.gg, siti che caricano capitoli via XHR
+- Target: site-c.example.org, siti che caricano capitoli via XHR
 - Estende static-css + aggiunge strategia AJAX per capitoli
 - Rileva endpoint XHR da Network tab / pattern URL
 
@@ -63,7 +63,7 @@ Creare adapter generici che coprano i pattern comuni dei 7 siti target, senza es
 - Pagine: direct image URLs da JSON
 
 ### D. `theme-generic-cms` — **CMS comuni (WP, Drupal, custom)**
-- Target: asurascans.com, valirscans.org, rokaricomics.com
+- Target: site-a.example.org, site-e.example.org, site-g.example.org
 - Rileva CMS via meta generator / path pattern
 - Selettori parametrizzabili per struttura CMS
 
@@ -254,13 +254,13 @@ Contenuto: **Lorem ipsum**, domini `example.org`, struttura HTML realistica ma f
 
 | Sito | Adapter Primario | Fallback |
 |------|------------------|----------|
-| asurascans.com | generic-cms (WP-like) | static-css |
-| ezmanga.org | static-css | - |
-| manganato.gg | ajax-chapters | static-css |
-| luacomic.org | static-css / json-api | - |
-| valirscans.org | generic-cms | static-css |
-| violetmanga.com | static-css / json-api | - |
-| rokaricomics.com | generic-cms / ajax-chapters | - |
+| site-a.example.org | generic-cms (WP-like) | static-css |
+| site-b.example.org | static-css | - |
+| site-c.example.org | ajax-chapters | static-css |
+| site-d.example.org | static-css / json-api | - |
+| site-e.example.org | generic-cms | static-css |
+| site-f.example.org | static-css / json-api | - |
+| site-g.example.org | generic-cms / ajax-chapters | - |
 
 ---
 

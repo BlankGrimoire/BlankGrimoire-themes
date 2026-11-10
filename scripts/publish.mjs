@@ -3,49 +3,14 @@
 
 import { createHash, createPublicKey, verify } from 'node:crypto';
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
-import { join, relative } from 'node:path';
+import { join, relative, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { buildIndexJson, signBundle } from '@blankgrimoire/cli';
+import { discoverAdapterPackages } from './adapter-package.mjs';
 
-const root = new URL('..', import.meta.url).pathname;
+const root = fileURLToPath(new URL('..', import.meta.url));
 const outputDirectory = join(root, 'public');
 const adaptersDirectory = join(root, 'themes');
-const adapters = [
-  {
-    directory: 'wp-manga',
-    id: 'theme.wp-manga',
-    name: 'WordPress Content Theme',
-  },
-  {
-    directory: 'themesia',
-    id: 'theme.themesia',
-    name: 'Themesia Content Theme',
-  },
-  {
-    directory: 'spa-hydration',
-    id: 'theme.spa-hydration',
-    name: 'SPA Hydration Theme',
-  },
-  {
-    directory: 'wp-madara',
-    id: 'wp-madara',
-    name: 'WordPress Madara',
-  },
-  {
-    directory: 'wp-mangastream',
-    id: 'wp-mangastream',
-    name: 'WordPress MangaStream',
-  },
-  {
-    directory: 'static-advanced',
-    id: 'static-advanced',
-    name: 'Static Advanced',
-  },
-  {
-    directory: 'spa-nextjs',
-    id: 'spa-nextjs',
-    name: 'SPA Next.js',
-  },
-];
 
 function requiredEnvironment(name) {
   const value = process.env[name]?.trim();
@@ -77,23 +42,50 @@ function sha256(data) {
   return createHash('sha256').update(data).digest('hex');
 }
 
+function validateManifest({ manifest, adapter }) {
+  if (manifest.id !== adapter.id) {
+    throw new Error(
+      `Manifest id mismatch for ${adapter.id}: found ${manifest.id}`,
+    );
+  }
+  if (manifest.name !== adapter.name) {
+    throw new Error(
+      `Manifest name mismatch for ${adapter.id}: found ${manifest.name}`,
+    );
+  }
+  if (manifest.version !== adapter.version) {
+    throw new Error(
+      `Manifest version mismatch for ${adapter.id}: found ${manifest.version}, expected ${adapter.version}`,
+    );
+  }
+  if (manifest.apiVersion !== 1) {
+    throw new Error(
+      `Manifest apiVersion mismatch for ${adapter.id}: found ${manifest.apiVersion}`,
+    );
+  }
+}
+
 async function createPublication({
   privateKey,
   publicKey,
   outputDirectory: destination = outputDirectory,
+  adapters,
 }) {
   const publicKeyValue = publicKeyObject(publicKey);
+  const adapterList = adapters ?? (await discoverAdapterPackages(adaptersDirectory));
+
   await rm(destination, { recursive: true, force: true });
   await mkdir(destination, { recursive: true });
   const entries = [];
 
-  for (const adapter of adapters) {
-    const sourceDirectory = join(adaptersDirectory, adapter.directory, 'dist');
+  for (const adapter of adapterList) {
+    const sourceDirectory = join(adapter.directory, 'dist');
     const bundle = await readFile(join(sourceDirectory, 'runtime.js'));
-    const manifest = JSON.parse(await readFile(join(sourceDirectory, 'manifest.json'), 'utf8'));
-    if (manifest.id !== adapter.id || manifest.name !== adapter.name) {
-      throw new Error(`Manifest identity mismatch for ${adapter.id}`);
-    }
+    const manifest = JSON.parse(
+      await readFile(join(sourceDirectory, 'manifest.json'), 'utf8'),
+    );
+    validateManifest({ manifest, adapter });
+
     if (manifest.sha256 !== sha256(bundle)) {
       throw new Error(`Manifest hash mismatch for ${adapter.id}`);
     }
@@ -107,7 +99,7 @@ async function createPublication({
       throw new Error(`Signature verification failed for ${adapter.id}`);
     }
 
-    const relativeDirectory = join('adapters', adapter.id);
+    const relativeDirectory = `adapters/${adapter.id}`;
     const destinationDirectory = join(destination, relativeDirectory);
     await mkdir(destinationDirectory, { recursive: true });
     await writeFile(join(destinationDirectory, 'runtime.js'), bundle);
@@ -138,12 +130,18 @@ async function createPublication({
   return { entries, outputDirectory: destination };
 }
 
-if (process.argv[1] === new URL(import.meta.url).pathname) {
-  await createPublication({
+const isMain =
+  process.argv[1] !== undefined &&
+  fileURLToPath(import.meta.url) === resolve(process.argv[1]);
+
+if (isMain) {
+  const publication = await createPublication({
     privateKey: requiredEnvironment('BLANKGRIMOIRE_PRIVATE_KEY'),
     publicKey: requiredEnvironment('BLANKGRIMOIRE_PUBLIC_KEY'),
   });
-  console.log(`Published ${adapters.length} adapters to ${relative(root, outputDirectory)}`);
+  console.log(
+    `Published ${publication.entries.length} adapters to ${relative(root, outputDirectory)}`,
+  );
 }
 
-export { createPublication };
+export { adaptersDirectory, createPublication, discoverAdapterPackages };

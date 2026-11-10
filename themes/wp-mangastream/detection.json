@@ -1,0 +1,10 @@
+{
+  "metaGenerator": "WordPress",
+  "selectors": [
+    ".listupd",
+    "#chapterlist",
+    "#readerarea",
+    "ts_reader"
+  ],
+  "minScore": 6
+}

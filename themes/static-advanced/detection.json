@@ -1,0 +1,9 @@
+{
+  "selectors": [
+    ".container-chapter-reader",
+    ".panel-story-chapter-list",
+    ".content-genres-item",
+    ".panel-search-story"
+  ],
+  "minScore": 7
+}

@@ -4,24 +4,24 @@ import { defineTheme } from '@blankgrimoire/types';
 import type { ThemeHooks } from '@blankgrimoire/types';
 
 /**
- * WordPress MangaStream Theme Adapter
+ * WordPress Chapter Theme Adapter
  * 
- * Generic adapter for sites using the MangaStream WordPress theme.
- * Features static HTML chapters list and JSON reader via ts_reader.run().
+ * Generic adapter for WordPress sites using a static chapter list and a
+ * JSON-based reader via ts_reader.run().
  */
 
 const hooks: ThemeHooks = {
   async getPages(ctx, mangaKey, chapterKey) {
-    // For MangaStream, the reader page contains JSON data in a script tag
+    // The reader page contains JSON data in a script tag
     // The runtime will parse using selectors, but we can add custom logic here if needed
     return [];
   }
 };
 
 export default defineTheme({
-  id: 'wp-mangastream',
-  name: 'WordPress MangaStream',
-  version: '1.0.0',
+  id: 'theme.wp-mangastream',
+  name: 'WordPress Chapter Theme',
+  version: '__ADAPTER_VERSION__',
   detectionSignature: {
     metaGenerator: 'WordPress',
     selectors: [

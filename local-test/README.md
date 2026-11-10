@@ -1,6 +1,8 @@
 # Local Test Environment
 
 Scripts for testing theme adapters locally with the iOS app before merging.
+This directory is a developer harness only: it is not published, and the local
+signing key and TLS certificates stay gitignored.
 
 The iOS app only accepts **HTTPS** repository URLs, so the recommended path is
 the local HTTPS server below. Plain HTTP remains available for quick checks
@@ -63,24 +65,24 @@ repository from the app before adding it again.
 ## What the script does
 
 1. Reuses or generates the local Ed25519 key pair
-2. Builds all 7 theme adapters
+2. Builds every theme adapter under `themes/`
 3. Signs bundles and generates `public/index.json`
 4. Serves `public/` over HTTP or local HTTPS
-5. Verifies that the index exposes 7 adapters
+5. Verifies that the index exposes at least one adapter
 
 ## Output
 
 ```text
 public/
-├── index.json              # Signed index with 7 adapters
+├── index.json              # Signed index with every discovered adapter
 ├── adapters/
-│   ├── theme.wp-manga/
-│   ├── theme.themesia/
 │   ├── theme.spa-hydration/
-│   ├── wp-madara/
-│   ├── wp-mangastream/
-│   ├── static-advanced/
-│   └── spa-nextjs/
+│   ├── theme.spa-nextjs/
+│   ├── theme.static-advanced/
+│   ├── theme.themesia/
+│   ├── theme.wp-madara/
+│   ├── theme.wp-manga/
+│   └── theme.wp-mangastream/
 ```
 
 `public/` is gitignored: running the script never dirties the repository.
@@ -97,12 +99,12 @@ Each adapter folder contains:
 # HTTP server + ngrok tunnel
 ./local-test/local-publish.sh --ngrok
 
-# Optional: stable ngrok domain
-./local-test/local-publish.sh --domain your-name.ngrok-free.app
+# Optional: stable tunnel domain
+./local-test/local-publish.sh --domain <your-tunnel-domain>
 ```
 
-Use the printed `https://...ngrok.../index.json` URL in the app. `--ngrok` and
-`--https` are mutually exclusive.
+Use the printed tunnel URL in the app. `--ngrok` and `--https` are mutually
+exclusive.
 
 ## Testing on a physical device with mkcert
 

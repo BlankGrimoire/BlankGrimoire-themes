@@ -13,9 +13,9 @@ import type { ThemeHooks } from '@blankgrimoire/types';
 const hooks: ThemeHooks = {};
 
 export default defineTheme({
-  id: 'static-advanced',
+  id: 'theme.static-advanced',
   name: 'Static Advanced',
-  version: '1.0.0',
+  version: '__ADAPTER_VERSION__',
   detectionSignature: {
     selectors: [
       '.container-chapter-reader',

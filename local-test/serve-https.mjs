@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// SPDX-License-Identifier: MPL-2.0
+// SPDX-License-Identifier: MIT
 
 // Minimal dependency-free static HTTPS server for local adapter repository
 // testing. Serves the published `public/` directory with the certificate

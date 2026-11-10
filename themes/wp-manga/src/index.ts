@@ -5,7 +5,7 @@ import { defineTheme } from '@blankgrimoire/types';
 export default defineTheme({
   id: 'theme.wp-manga',
   name: 'WordPress Content Theme',
-  version: '1.0.0',
+  version: '__ADAPTER_VERSION__',
   detectionSignature: {
     metaGenerator: '^WP Content Theme',
     selectors: ['.wp-content-reader', '.wp-content-chapters'],

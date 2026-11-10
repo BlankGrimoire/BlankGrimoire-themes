@@ -23,16 +23,18 @@ Pull requests that break these rules will be closed with the `out-of-scope` labe
 - Keep the `ThemeSignature` specific enough to avoid false positives.
 - Each adapter lives in `themes/<name>/` with `src/`, `fixtures/`, `test/`
   and a `README.md` describing the structures it supports.
-- Bump the adapter `version` following SemVer on every change.
+- Add a Changeset with `pnpm changeset` on every change. Do not edit adapter
+  versions or package changelogs by hand.
 
 ## Workflow
 
 1. Fork and create a branch: `feat/theme-<name>` or `fix/<adapter>-<topic>`.
-2. Scaffold with `npm create blank-theme@latest`.
+2. Copy an existing package under `themes/` as the starting point.
 3. Add or update synthetic fixtures and tests.
-4. Run `pnpm test` and `pnpm lint`.
-5. Open a PR using [Conventional Commits](https://www.conventionalcommits.org/)
-   (`feat:`, `fix:`, `chore:`) and fill in the template.
+4. Run `pnpm lint`, `pnpm typecheck`, `pnpm test` and `pnpm publish:check`.
+5. Add a Changeset with `pnpm changeset`.
+6. Open a PR using Conventional Commits (`feat:`, `fix:`, `chore:`) and fill
+   in the template.
 
 ## Reporting a broken adapter
 

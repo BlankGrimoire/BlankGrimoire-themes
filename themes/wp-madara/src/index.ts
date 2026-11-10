@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 import { defineTheme } from '@blankgrimoire/types';
-import type { ThemeAdapter, ThemeHooks } from '@blankgrimoire/types';
+import type { ThemeHooks } from '@blankgrimoire/types';
 
 /**
  * WordPress Madara Theme Adapter
@@ -30,10 +30,10 @@ const hooks: ThemeHooks = {
   }
 };
 
-export default {
-  id: 'wp-madara',
+export default defineTheme({
+  id: 'theme.wp-madara',
   name: 'WordPress Madara',
-  version: '1.0.0',
+  version: '__ADAPTER_VERSION__',
   detectionSignature: {
     metaGenerator: 'Madara',
     selectors: [
@@ -83,4 +83,4 @@ export default {
     attribution: {}
   },
   hooks
-};
+});

@@ -5,7 +5,7 @@ import { defineTheme } from '@blankgrimoire/types';
 export default defineTheme({
   id: 'theme.themesia',
   name: 'Themesia Content Theme',
-  version: '1.0.0',
+  version: '__ADAPTER_VERSION__',
   detectionSignature: {
     metaGenerator: '^Themesia Content Theme',
     selectors: ['.tsia-reader', '.tsia-chapter-list'],

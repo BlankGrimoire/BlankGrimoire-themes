@@ -7,7 +7,7 @@ import type { ThemeHooks } from '@blankgrimoire/types';
  * SPA Next.js Theme Adapter
  * 
  * Generic adapter for Next.js sites using __NEXT_DATA__ hydration.
- * Handles Cloudflare Turnstile challenge detection.
+ * Anti-bot challenges are handled by the visible app web view, never here.
  */
 
 const hooks: ThemeHooks = {
@@ -29,9 +29,9 @@ const hooks: ThemeHooks = {
 };
 
 export default defineTheme({
-  id: 'spa-nextjs',
+  id: 'theme.spa-nextjs',
   name: 'SPA Next.js',
-  version: '1.0.0',
+  version: '__ADAPTER_VERSION__',
   detectionSignature: {
     selectors: [
       '#__NEXT_DATA__',

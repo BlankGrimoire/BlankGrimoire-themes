@@ -1,7 +1,12 @@
 {
   "name": "@blankgrimoire/theme-static-advanced",
   "version": "1.0.0",
-  "description": "Static Advanced Theme Adapter - Generic adapter for static HTML sites with specific class patterns and Referer header requirement for images.",
+  "private": true,
+  "description": "Generic adapter for static HTML sites with specific class patterns and a Referer header requirement for images.",
+  "blankgrimoire": {
+    "adapterId": "theme.static-advanced",
+    "adapterName": "Static Advanced"
+  },
   "license": "MIT",
   "type": "module",
   "main": "dist/index.js",
@@ -12,10 +17,10 @@
     "README.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json && node scripts/build-bundle.mjs",
+    "build": "tsc -p tsconfig.json && node ../../scripts/build-adapter-bundle.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json",
     "test": "vitest run",
-    "manifest": "pnpm build && node scripts/build-manifest.mjs"
+    "manifest": "pnpm build && node ../../scripts/build-adapter-manifest.mjs"
   },
   "dependencies": {
     "@blankgrimoire/types": "1.0.1"
