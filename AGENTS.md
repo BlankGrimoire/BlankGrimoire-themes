@@ -54,8 +54,11 @@ identity in a `blankgrimoire` block:
 - Squash merge; the PR title is validated by `pr-title.yml`.
 - Every adapter change includes a Changeset (`pnpm changeset`).
 - Never edit `CHANGELOG.md` or adapter versions by hand. Never create release tags manually.
-- The publish workflow tags adapters only after a successful GitHub Pages deploy.
-  Pushes with no pending `<adapter-id>@<version>` tag are skipped.
+- The publish workflow is fully automatic on `main`: it applies the pending
+  changesets, commits the version bump as `blankgrimoire-release-bot[bot]`,
+  builds and signs the bundles, deploys GitHub Pages, and only then tags the
+  adapters. No version pull request is opened.
+- Pushes with no pending `<adapter-id>@<version>` tag are skipped.
 
 ## Code Style
 

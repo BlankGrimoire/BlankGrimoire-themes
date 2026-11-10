@@ -36,6 +36,13 @@ Pull requests that break these rules will be closed with the `out-of-scope` labe
 6. Open a PR using Conventional Commits (`feat:`, `fix:`, `chore:`) and fill
    in the template.
 
+## Releases
+
+Releases are automatic. When changes reach `main`, the publish workflow applies
+the pending changesets, commits the version bump, publishes the signed bundles
+to GitHub Pages, and then tags the released adapters. Do not version packages, edit
+changelogs, or create release tags by hand.
+
 ## Reporting a broken adapter
 
 Describe **which structure changed** (e.g. "chapter list now loaded via AJAX")
