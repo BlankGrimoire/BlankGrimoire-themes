@@ -30,12 +30,12 @@ export default defineTheme({
       path: '/search/story/{query}',
       item: '.panel-search-story, .content-genres-item',
       title: 'h3 a, .title a',
-      link: 'a@href',
-      cover: '.genres-item-img img@src, img@src'
+      link: 'a',
+      cover: '.genres-item-img img, img'
     },
     details: {
       title: '.story-info-right h1, h1.story-title',
-      cover: '.info-image img@src, .cover-image img@src',
+      cover: '.info-image img, .cover-image img',
       synopsis: '#panel-story-info-description, .description',
       authors: '.table-value a[href*="/author/"]',
       artists: '.table-value a[href*="/artist/"]',
@@ -45,9 +45,9 @@ export default defineTheme({
     },
     chapters: {
       item: '.panel-story-chapter-list a.chapter-name, .chapter-list a',
-      link: 'a@href',
+      link: 'a',
       title: 'a',
-      date: '.chapter-release-date@datetime, .chapter-release-date, .date',
+      date: '.chapter-release-date, .date',
       order: 'desc'
     },
     pages: {

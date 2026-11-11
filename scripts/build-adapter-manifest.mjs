@@ -22,6 +22,41 @@ function assertSame(label, actual, expected) {
   }
 }
 
+function assertSupportedSelectors(selectors) {
+  const values = [
+    selectors.search?.item,
+    selectors.search?.title,
+    selectors.search?.link,
+    selectors.search?.cover,
+    selectors.search?.nextPage,
+    selectors.details?.title,
+    selectors.details?.cover,
+    selectors.details?.synopsis,
+    selectors.details?.authors,
+    selectors.details?.artists,
+    selectors.details?.altTitles,
+    selectors.details?.tags,
+    selectors.details?.status,
+    selectors.details?.contentRating,
+    selectors.chapters?.item,
+    selectors.chapters?.link,
+    selectors.chapters?.title,
+    selectors.chapters?.date,
+  ].filter((value) => typeof value === 'string' && value !== '');
+
+  for (const value of values) {
+    for (const part of value.split(',')) {
+      const token = part.trim();
+      if (/@[A-Za-z_][\w-]*$/.test(token)) {
+        throw new Error(
+          `${packageDirectory}: selector "${token}" uses the unsupported "@attribute" suffix; ` +
+            'read the attribute from the selected element instead',
+        );
+      }
+    }
+  }
+}
+
 const packageDirectory = process.cwd();
 const adapter = await readAdapterPackage(packageDirectory);
 const bundle = await readFile(join(packageDirectory, 'dist', 'runtime.js'));
@@ -38,6 +73,8 @@ assertSame('id', bundledAdapter.id, adapter.id);
 assertSame('name', bundledAdapter.name, adapter.name);
 assertSame('version', bundledAdapter.version, adapter.version);
 assertSame('apiVersion', bundledAdapter.apiVersion, 1);
+
+assertSupportedSelectors(bundledAdapter.selectors);
 
 if (
   JSON.stringify(bundledAdapter.detectionSignature) !==

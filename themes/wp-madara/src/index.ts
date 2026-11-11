@@ -51,12 +51,12 @@ export default defineTheme({
       path: '/?s={query}&post_type=wp-manga',
       item: '.c-tabs-item__content, .page-item-detail',
       title: 'h3 a, .post-title a, .title a',
-      link: 'a@href',
-      cover: 'img@data-src, img@data-lazy-src, img@src'
+      link: 'a',
+      cover: 'img'
     },
     details: {
       title: '.post-title h1, h1.entry-title',
-      cover: '.summary_image img@data-src, .summary_image img@data-lazy-src, .post-thumb img@src',
+      cover: '.summary_image img, .post-thumb img',
       synopsis: '.summary__content, .description-summary, .manga-excerpt',
       authors: '.author-content a, .manga-author a',
       artists: '.artist-content a, .manga-artist a',
@@ -66,9 +66,9 @@ export default defineTheme({
     },
     chapters: {
       item: '.wp-manga-chapter, .chapter-item, li.wp-manga-chapter',
-      link: 'a@href',
+      link: 'a',
       title: 'a',
-      date: '.chapter-release-date@datetime, .chapter-release-date, .date',
+      date: '.chapter-release-date, .date',
       order: 'desc'
     },
     pages: {
