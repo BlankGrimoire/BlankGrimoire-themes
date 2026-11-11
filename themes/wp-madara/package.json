@@ -1,6 +1,6 @@
 {
   "name": "@blankgrimoire/theme-wp-madara",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Generic adapter for sites using the Madara WordPress theme with AJAX chapter loading.",
   "blankgrimoire": {

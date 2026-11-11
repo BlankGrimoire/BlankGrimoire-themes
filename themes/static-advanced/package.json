@@ -1,6 +1,6 @@
 {
   "name": "@blankgrimoire/theme-static-advanced",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Generic adapter for static HTML sites with specific class patterns and a Referer header requirement for images.",
   "blankgrimoire": {
