@@ -52,6 +52,34 @@ prompt. The simulator only needs the `simctl keychain` command above.
 This serves `http://localhost:8080/index.json`. Useful to inspect the index
 with `curl`, but the iOS app rejects it by design.
 
+## End-to-end dry-run with synthetic sites
+
+`local-test/sites/` contains two hand-written catalogs, Site A and Site B.
+Both expose the same series and chapter paths (`/series/lorem/`,
+`/chapter/1/`, `/chapter/2/`) on different ports. The iOS test imports both and
+proves that chapter identities never collide across sites.
+
+```bash
+# Terminal 1: adapter repository (https://localhost:8443/index.json)
+./local-test/local-publish.sh --https
+
+# Terminal 2: synthetic sites (https://localhost:8444 and :8445)
+./local-test/serve-sites.sh
+
+# Terminal 3: gated iOS test
+cd ../BlankGrimoire-iOS
+make gen
+xcodebuild test -project BlankGrimoire.xcodeproj -scheme BlankGrimoire \
+  -destination 'platform=iOS Simulator,name=iPhone 18 Pro' \
+  CODE_SIGNING_ALLOWED=NO BLANKGRIMMOIRE_E2E=1
+```
+
+Only the test with `BLANKGRIMMOIRE_E2E=1` talks to these servers; the normal
+suite skips it. The test uses loopback IPs (`127.0.0.1`) because ATS does not
+apply to numeric addresses. Override the endpoints with the
+`BLANKGRIMMOIRE_E2E_REPOSITORY_URL`, `BLANKGRIMMOIRE_E2E_SITE_A` and
+`BLANKGRIMMOIRE_E2E_SITE_B` build settings.
+
 ## Persistent signing key
 
 The script stores the Ed25519 signing key in `local-test/local-signing.key`
