@@ -25,48 +25,52 @@ export default defineTheme({
   detectionSignature: {
     metaGenerator: 'WordPress',
     selectors: [
-      '.listupd',
       '#chapterlist',
-      '#readerarea',
-      'ts_reader'
+      '.manga-info',
+      '.seriestu',
+      '.reading-content',
+      '.reader-area'
     ],
+    scriptSrc: ['themes/(?:mangareader|manganova)/'],
     minScore: 6
   },
   selectors: {
     search: {
       path: '/?s={query}',
-      item: '.listupd .bsx',
-      title: '.tt a, h3 a',
+      item: '.listupd .bsx, .c-tabs-item__content, .item, .xem-nhieu-item',
+      title: '.tt a, .entry-title a, h3 a, .series',
       link: 'a',
       cover: 'img'
     },
     details: {
       title: '.entry-title, h1.post-title',
-      cover: '.thumb img, .post-thumb img',
+      cover: '.thumb img, .post-thumb img, .wp-post-image',
       synopsis: '.entry-content, .post-content',
-      authors: '.mgen a[href*="/author/"]',
+      authors: '.mgen a[href*="/author/"], .author-content a, .manga-author a',
       artists: '.mgen a[href*="/artist/"]',
       altTitles: '.alternative-titles, .alt-titles',
-      tags: '.mgen a',
-      status: '.post-status, .status'
+      tags: '.mgen a, .seriestugenre a',
+      status: '.post-status, .status, .summary-content'
     },
     chapters: {
-      item: '#chapterlist .eph-num a, #chapterlist li a, .listing-chapters_wrap li a',
+      item: '#chapterlist .eph-num, #chapterlist li, .listing-chapters_wrap li',
       link: 'a',
       title: 'a',
-      date: '.chapter-release-date, .date',
+      date: '.chapterdate, .post-date, .chapter-release-date, .date',
       order: 'desc'
     },
     pages: {
       strategies: [
         {
           kind: 'css',
-          image: '.reading-content img, .page-break img, .page img',
+          image: '.reading-content img, .reader-area img, #readerarea img, .page-break img, .page img',
           srcAttributes: ['data-src', 'data-lazy-src', 'data-original', 'src']
         }
       ]
     },
-    attribution: {}
+    attribution: {
+      logo: 'img.custom-logo, .logo img'
+    }
   },
   hooks
 });

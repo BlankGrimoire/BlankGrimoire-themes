@@ -125,6 +125,12 @@ Bundles are signed with Ed25519; the app verifies every update.
 
 Tests run exclusively against **hand-written synthetic fixtures**.
 
+Compatibility is determined by the public HTML structure exposed to the
+adapter runtime. A site that requires an interactive challenge or loads its
+catalog exclusively through client-side requests may still need the visible
+app web view or a future request-aware adapter hook; theme detection must not
+silently bypass those requirements.
+
 ## Contributing
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md): pull requests that break these rules

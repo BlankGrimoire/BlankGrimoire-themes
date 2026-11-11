@@ -3,7 +3,10 @@
     ".container-chapter-reader",
     ".panel-story-chapter-list",
     ".content-genres-item",
-    ".panel-search-story"
+    ".panel-search-story",
+    ".chapter-page",
+    ".manga-info-top",
+    "#chapter-list-container"
   ],
   "minScore": 7
 }
