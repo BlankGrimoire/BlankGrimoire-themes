@@ -1,6 +1,6 @@
 {
   "name": "@blankgrimoire/theme-wp-mangastream",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": true,
   "description": "Generic adapter for WordPress sites with a static chapter list and a JSON-based reader.",
   "blankgrimoire": {

@@ -1,6 +1,6 @@
 {
   "name": "@blankgrimoire/theme-spa-nextjs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Generic adapter for Next.js sites using __NEXT_DATA__ hydration.",
   "blankgrimoire": {
