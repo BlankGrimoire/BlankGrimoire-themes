@@ -7,6 +7,7 @@
 *.p12
 *.mobileprovision
 /.secrets/
+/public/
 node_modules/
 dist/
 coverage/

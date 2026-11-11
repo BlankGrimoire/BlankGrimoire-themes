@@ -1,0 +1,132 @@
+name: Publish Theme Adapters
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Create GitHub App token
+        id: release-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: BlankGrimoire
+          repositories: BlankGrimoire-themes
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ steps.release-token.outputs.token }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Detect changesets
+        id: changesets
+        run: |
+          count=$(find .changeset -maxdepth 1 -type f -name '*.md' ! -name 'README.md' | wc -l | tr -d ' ')
+          if [ "$count" -gt 0 ]; then
+            echo "has_changesets=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changesets=false" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Pending changesets: $count"
+
+      - name: Apply changeset versions
+        if: steps.changesets.outputs.has_changesets == 'true'
+        run: pnpm run version
+
+      - name: Commit and push version bump
+        if: steps.changesets.outputs.has_changesets == 'true'
+        run: |
+          git config user.name "blankgrimoire-release-bot[bot]"
+          git config user.email "355030082+blankgrimoire-release-bot[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Changesets produced no version changes; nothing to commit."
+            exit 0
+          fi
+          git commit -m "chore(release): version theme adapters [skip ci]"
+          git push origin HEAD:main
+
+      - name: Detect pending releases
+        id: release
+        run: node scripts/release-state.mjs
+
+      - name: Skip publication when everything is tagged
+        if: steps.release.outputs.has_release != 'true'
+        run: echo "No pending adapter versions; nothing to publish."
+
+      - name: Verify publication locally
+        if: steps.release.outputs.has_release == 'true'
+        run: pnpm publish:check
+
+      - name: Build, sign, and validate publication
+        if: steps.release.outputs.has_release == 'true'
+        run: pnpm publish:build
+        env:
+          BLANKGRIMOIRE_PRIVATE_KEY: ${{ secrets.BLANKGRIMOIRE_PRIVATE_KEY }}
+          BLANKGRIMOIRE_PUBLIC_KEY: ${{ vars.BLANKGRIMOIRE_PUBLIC_KEY }}
+
+      - name: Validate index.json
+        if: steps.release.outputs.has_release == 'true'
+        run: |
+          expected=$(find themes -mindepth 2 -maxdepth 2 -name package.json | wc -l | tr -d ' ')
+          count=$(jq '.extensions | length' public/index.json)
+          if [ "$count" -ne "$expected" ]; then
+            echo "Expected $expected adapters, found $count" >&2
+            exit 1
+          fi
+          jq -e '.formatVersion == 1' public/index.json
+          jq -e '.publicKey | startswith("ed25519:")' public/index.json
+          jq -e '.name == "BlankGrimoire Themes"' public/index.json
+          jq -e '[.extensions[].id] | unique | length == length' public/index.json
+
+      - name: Configure GitHub Pages
+        if: steps.release.outputs.has_release == 'true'
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        if: steps.release.outputs.has_release == 'true'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - name: Deploy to GitHub Pages
+        if: steps.release.outputs.has_release == 'true'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Tag deployed adapters
+        if: steps.release.outputs.has_release == 'true'
+        run: node scripts/tag-release.mjs

@@ -1,0 +1,12 @@
+{
+  "metaGenerator": "Madara",
+  "selectors": [
+    ".page-item-detail",
+    ".wp-manga",
+    ".manga_get_chapters",
+    ".c-tabs-item__content",
+    ".summary_image",
+    ".post-title"
+  ],
+  "minScore": 7
+}
