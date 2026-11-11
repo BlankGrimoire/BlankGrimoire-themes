@@ -44,4 +44,5 @@ describe('Static Advanced Parser', () => {
     expect(html).toContain('container-chapter-reader');
     expect(html).toContain('https://example.org/chapters/one-piece/1090/01.jpg');
   });
+
 });

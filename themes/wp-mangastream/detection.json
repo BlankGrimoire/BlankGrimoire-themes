@@ -1,10 +1,14 @@
 {
   "metaGenerator": "WordPress",
   "selectors": [
-    ".listupd",
     "#chapterlist",
-    "#readerarea",
-    "ts_reader"
+    ".manga-info",
+    ".seriestu",
+    ".reading-content",
+    ".reader-area"
+  ],
+  "scriptSrc": [
+    "themes/(?:mangareader|manganova)/"
   ],
   "minScore": 6
 }
