@@ -47,6 +47,7 @@ const sourceExtensions = new Set([
 const allowedEmails = new Set([
   'blankgrimoire.dev@gmail.com',
   '41898282+github-actions[bot]@users.noreply.github.com',
+  '355030082+blankgrimoire-release-bot[bot]@users.noreply.github.com',
 ]);
 const allowedHosts = new Set([
   'example.org',

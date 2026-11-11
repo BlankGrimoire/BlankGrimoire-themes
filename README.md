@@ -66,21 +66,20 @@ the signed adapter bundles and repository index, not npm packages directly.
 Versions are managed with [Changesets](./.changeset/):
 
 1. Every adapter change includes a changeset (`pnpm changeset`).
-2. On `main`, the publish workflow opens or updates a version pull request.
-3. Merging that pull request runs the publication check, builds and signs the
-   bundles, deploys GitHub Pages, and only then creates
-   `<adapter-id>@<version>` tags.
+2. On `main`, the publish workflow applies the changesets and commits the
+   version bump itself, as `blankgrimoire-release-bot[bot]`, with
+   `chore(release): version theme adapters [skip ci]`. No version pull request
+   is opened.
+3. The same run checks the publication, builds and signs the bundles, deploys
+   GitHub Pages, and only then creates `<adapter-id>@<version>` tags.
 4. Pushes with no pending adapter version (every `<adapter-id>@<version>`
    tag already exists) do not deploy or create tags.
 
 Do not edit `CHANGELOG.md` or package versions by hand; Changesets writes the
-per-package changelogs.
-
-The version pull request is handled by `changesets/action@v2`, which targets
-Changesets 3. Repository settings must allow GitHub Actions to create and
-approve pull requests. After merging the version pull request, merge `main`
-back into `develop` so the integration branch keeps the released versions and
-the consumed changesets.
+per-package changelogs. The release identity is a GitHub App, so the version
+commit and tag pushes do not depend on a personal access token. After a
+release, merge `main` back into `develop` so the integration branch keeps the
+released versions and the consumed changesets.
 
 ## Publishing
 

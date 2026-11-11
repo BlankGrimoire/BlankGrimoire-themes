@@ -37,12 +37,12 @@ export default defineTheme({
       path: '/?s={query}',
       item: '.listupd .bsx',
       title: '.tt a, h3 a',
-      link: 'a@href',
-      cover: 'img@src, img@data-src'
+      link: 'a',
+      cover: 'img'
     },
     details: {
       title: '.entry-title, h1.post-title',
-      cover: '.thumb img@src, .post-thumb img@src',
+      cover: '.thumb img, .post-thumb img',
       synopsis: '.entry-content, .post-content',
       authors: '.mgen a[href*="/author/"]',
       artists: '.mgen a[href*="/artist/"]',
@@ -52,9 +52,9 @@ export default defineTheme({
     },
     chapters: {
       item: '#chapterlist .eph-num a, #chapterlist li a, .listing-chapters_wrap li a',
-      link: 'a@href',
+      link: 'a',
       title: 'a',
-      date: '.chapter-release-date@datetime, .chapter-release-date, .date',
+      date: '.chapter-release-date, .date',
       order: 'desc'
     },
     pages: {
