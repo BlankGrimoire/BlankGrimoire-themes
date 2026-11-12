@@ -141,7 +141,7 @@
     var BlankGrimoireRuntime = {
         id: "theme.mangant",
         name: "Carousel Grid Theme",
-        version: "1.0.0",
+        version: "1.1.0",
         apiVersion: 1,
 
         // Detection signature for theme auto-detection

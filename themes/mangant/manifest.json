@@ -1,7 +1,7 @@
 {
   "id": "theme.mangant",
   "name": "Mangant",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "apiVersion": 1,
   "description": "Theme adapter for carousel-based grid layouts with chapter lists and reader pages",
   "author": "BlankGrimoire",
