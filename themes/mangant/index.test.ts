@@ -11,8 +11,9 @@ import { VMHarness } from '@blankgrimoire/testing';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+// Use the published runtime package instead of relative SDK path
 const runtimeIIFE = readFileSync(
-  join(__dirname, '../../../BlankGrimoire-sdk/packages/runtime/dist/runtime.js'),
+  join(__dirname, 'node_modules/@blankgrimoire/runtime/dist/runtime.js'),
   'utf8',
 );
 
