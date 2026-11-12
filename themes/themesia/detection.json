@@ -1,8 +1,0 @@
-{
-  "metaGenerator": "^Themesia Content Theme",
-  "selectors": [
-    ".tsia-reader",
-    ".tsia-chapter-list"
-  ],
-  "minScore": 7
-}

@@ -1,8 +1,0 @@
-{
-  "metaGenerator": "^WP Content Theme",
-  "selectors": [
-    ".wp-content-reader",
-    ".wp-content-chapters"
-  ],
-  "minScore": 7
-}

@@ -104,13 +104,7 @@ repository from the app before adding it again.
 public/
 ├── index.json              # Signed index with every discovered adapter
 ├── adapters/
-│   ├── theme.spa-hydration/
-│   ├── theme.spa-nextjs/
-│   ├── theme.static-advanced/
-│   ├── theme.themesia/
-│   ├── theme.wp-madara/
-│   ├── theme.wp-manga/
-│   └── theme.wp-mangastream/
+│   └── theme.mangant/
 ```
 
 `public/` is gitignored: running the script never dirties the repository.

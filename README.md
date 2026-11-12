@@ -10,26 +10,15 @@ matching theme automatically.
 
 | Adapter | Package | Covers | Kind |
 |---|---|---|---|
-| `theme.spa-hydration` | `@blankgrimoire/theme-spa-hydration` | Next.js / Nuxt hydration payloads | Reference |
-| `theme.spa-nextjs` | `@blankgrimoire/theme-spa-nextjs` | Next.js sites exposing `__NEXT_DATA__` | Specific |
-| `theme.static-advanced` | `@blankgrimoire/theme-static-advanced` | Static HTML sites with story/chapter class patterns | Specific |
-| `theme.themesia` | `@blankgrimoire/theme-themesia` | Themesia-family content themes | Reference |
-| `theme.wp-madara` | `@blankgrimoire/theme-wp-madara` | Madara WordPress themes with AJAX chapters | Specific |
-| `theme.wp-manga` | `@blankgrimoire/theme-wp-manga` | WordPress content themes | Reference |
-| `theme.wp-mangastream` | `@blankgrimoire/theme-wp-mangastream` | WordPress chapter themes with static lists and JSON readers | Specific |
+| `theme.mangant` | `@blankgrimoire/theme-mangant` | Carousel / grid layouts with chapter lists and reader pages | Specific |
 
 All adapters are implemented and versioned independently with Changesets.
 
 ### Detection and overlap
 
-Detection signatures are intentionally disjoint:
-
-- **Specific adapters** require a framework marker or a distinctive set of
-  selectors (`Madara`, `WordPress` plus chapter-reader markers,
-  `__NEXT_DATA__`, or the static story/chapter classes).
-- **Reference adapters** use hand-written synthetic `metaGenerator` markers
-  and selectors. They document the contract and back the conformance tests;
-  they do not claim real sites.
+Detection signatures are intentionally disjoint. The carousel-grid adapter
+requires a distinctive set of carousel and chapter-reader selectors rather
+than a specific domain.
 
 If a future adapter would overlap an existing one, merge or deprecate it
 instead of publishing both. When scores tie, the app's documented tie-break

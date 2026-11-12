@@ -1,0 +1,34 @@
+{
+  "selectors": [
+    "form[name=\"frmsearch\"]",
+    "#search_story",
+    "#search_result",
+    ".owl-carousel",
+    ".owl-carousel.owl-theme",
+    ".owl-wrapper-outer",
+    ".wrap-menu-primary",
+    ".menu-primary",
+    ".item",
+    ".chapter-list .row",
+    "#chapter-dropdown.navi-change-chapter",
+    ".container-chapter-reader",
+    ".panel-story-info-description",
+    ".comic-info-section",
+    "#chapter-list-container[data-api-url]",
+    ".genre-list",
+    ".list-comic-item-wrap",
+    ".panel_page_number"
+  ],
+  "scriptSrc": [
+    "owl.carousel",
+    "owl.carousel.min",
+    "jquery.min",
+    "cdn.example.org"
+  ],
+  "probePaths": [
+    "/item-list/latest",
+    "/search/story/test"
+  ],
+  "minScore": 15,
+  "usesWebViewMode": false
+}

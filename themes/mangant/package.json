@@ -1,0 +1,42 @@
+{
+  "name": "@blankgrimoire/theme-mangant",
+  "version": "1.1.0",
+  "description": "Carousel List Grid theme adapter for BlankGrimoire",
+  "blankgrimoire": {
+    "adapterId": "theme.mangant",
+    "adapterName": "Carousel Grid Theme"
+  },
+  "type": "module",
+  "main": "dist/bundle.js",
+  "types": "dist/bundle.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "mkdir -p dist && cp bundle.js dist/runtime.js && cp manifest.json dist/",
+    "dev": "tsc -w",
+    "typecheck": "tsc -p tsconfig.typecheck.json",
+    "test": "vitest run",
+    "lint": "eslint . --ext .ts,.js",
+    "manifest": "pnpm build && node ../../scripts/build-adapter-manifest.mjs"
+  },
+  "keywords": [
+    "blankgrimoire",
+    "theme",
+    "carousel",
+    "grid",
+    "list"
+  ],
+  "author": "BlankGrimoire",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "@blankgrimoire/runtime": "^1.2.0",
+    "@blankgrimoire/testing": "^1.0.0",
+    "@blankgrimoire/types": "^1.1.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.6.1"
+  },
+  "peerDependencies": {
+    "@blankgrimoire/types": "^1.1.0"
+  }
+}
