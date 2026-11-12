@@ -27,6 +27,9 @@ importers:
 
   themes/mangant:
     devDependencies:
+      '@blankgrimoire/runtime':
+        specifier: ^1.2.0
+        version: 1.2.0
       '@blankgrimoire/testing':
         specifier: ^1.0.0
         version: 1.0.1
@@ -52,6 +55,9 @@ packages:
   '@blankgrimoire/runtime@1.0.1':
     resolution: {integrity: sha512-BCx0WJauNh0z2asryJzoXSYok3RETKkOgA7sxmwu9AfYqk5TMHj/HiHIjG5TK5OcflraK+Wvw3AGJVz3sDWbKg==}
 
+  '@blankgrimoire/runtime@1.2.0':
+    resolution: {integrity: sha512-VRdGGnA7CIa62vbXSUCg/noyt2a+7cpTCEkr8BMgJwpjVEzkM1CRH1GG5+HCgFjK1LEUS41wEwBICkRHisTfPQ==}
+
   '@blankgrimoire/testing@1.0.1':
     resolution: {integrity: sha512-5T6m7zb998jKDJNmmbhHR6J3o6TXZrEinkcHNc2MLat2PzgUJetg+f/SYFwe4kNfdKlnZjMnTTV5H7JX/ChQiA==}
 
@@ -60,6 +66,9 @@ packages:
 
   '@blankgrimoire/types@1.1.0':
     resolution: {integrity: sha512-S2PXtAi5Lq5P0tIP0q/7eHe6KGHPPO9YNL/tXsUn5mvMU9gUwCoujJJ9RB1IvphPs4XOmzYXjOh7tQB0KzVmwA==}
+
+  '@blankgrimoire/types@1.2.0':
+    resolution: {integrity: sha512-kLumrgm9VKniisV0BDkDmGcpCT9octPcKhQEgqyDpUAeKNb0Y5cyP+KevvigCMZg3Hc7HOmKncDw28Az0f2q3w==}
 
   '@changesets/apply-release-plan@8.1.1':
     resolution: {integrity: sha512-nk2Hbq3M9NeHMdaIRBDvawKrQJzXB9sGyBUE5yWnIKtvdcNCPj75zBekJYr0gTT2ecJH3eFeTrc8eisPImcv0Q==}
@@ -1237,6 +1246,10 @@ snapshots:
     dependencies:
       '@blankgrimoire/types': 1.0.1
 
+  '@blankgrimoire/runtime@1.2.0':
+    dependencies:
+      '@blankgrimoire/types': 1.2.0
+
   '@blankgrimoire/testing@1.0.1':
     dependencies:
       '@blankgrimoire/runtime': 1.0.1
@@ -1251,6 +1264,8 @@ snapshots:
   '@blankgrimoire/types@1.0.1': {}
 
   '@blankgrimoire/types@1.1.0': {}
+
+  '@blankgrimoire/types@1.2.0': {}
 
   '@changesets/apply-release-plan@8.1.1':
     dependencies:
