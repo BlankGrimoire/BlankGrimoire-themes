@@ -8,8 +8,8 @@ Human contributors: see `CONTRIBUTING.md` and the organization's `.github` repos
 | Key | Value |
 |-----|-------|
 | Repository | BlankGrimoire-themes |
-| Stack | TypeScript pnpm monorepo of seven theme adapters |
-| Adapters | `theme.spa-hydration`, `theme.spa-nextjs`, `theme.static-advanced`, `theme.themesia`, `theme.wp-madara`, `theme.wp-manga`, `theme.wp-mangastream` |
+| Stack | TypeScript pnpm monorepo for theme adapters |
+| Adapters | `theme.mangant` |
 | License | MIT |
 | Source header | `// SPDX-License-Identifier: MIT` (or `# SPDX-License-Identifier: MIT` for shell) at the top of every source file |
 | Contact | blankgrimoire.dev@gmail.com |

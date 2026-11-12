@@ -18,13 +18,7 @@ packages.
 
 | Package | Adapter id | Detection marker | Kind |
 |---|---|---|---|
-| `spa-hydration` | `theme.spa-hydration` | Synthetic hydration metadata | Reference |
-| `spa-nextjs` | `theme.spa-nextjs` | `__NEXT_DATA__` | Specific |
-| `static-advanced` | `theme.static-advanced` | Static story/chapter classes | Specific |
-| `themesia` | `theme.themesia` | Synthetic Themesia metadata | Reference |
-| `wp-madara` | `theme.wp-madara` | `Madara` generator + AJAX chapter markers | Specific |
-| `wp-manga` | `theme.wp-manga` | Synthetic WordPress content metadata | Reference |
-| `wp-mangastream` | `theme.wp-mangastream` | `WordPress` generator + chapter-reader markers | Specific |
+| `mangant` | `theme.mangant` | Carousel / grid layout selectors | Specific |
 
 `package.json` owns the version and the public `blankgrimoire` metadata. The
 shared scripts `scripts/build-adapter-bundle.mjs` and
@@ -50,9 +44,9 @@ in the visible app web view.
 From the repository root:
 
 ```bash
-pnpm --filter @blankgrimoire/theme-spa-hydration test
-pnpm --filter @blankgrimoire/theme-spa-hydration build
-pnpm --filter @blankgrimoire/theme-spa-hydration manifest
+pnpm --filter @blankgrimoire/theme-mangant test
+pnpm --filter @blankgrimoire/theme-mangant build
+pnpm --filter @blankgrimoire/theme-mangant manifest
 ```
 
 Replace the filter with the package you are working on.

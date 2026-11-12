@@ -1,0 +1,105 @@
+{
+  "id": "theme.mangant",
+  "name": "Mangant",
+  "version": "1.0.0",
+  "apiVersion": 1,
+  "description": "Theme adapter for carousel-based grid layouts with chapter lists and reader pages",
+  "author": "BlankGrimoire",
+  "homepage": "",
+  "capabilities": {
+    "search": true,
+    "filterByGenre": true,
+    "details": true,
+    "chapters": true,
+    "reader": true,
+    "library": true
+  },
+  "detectionSignature": {
+    "selectors": [
+      "form[name=\"frmsearch\"]",
+      "#search_story",
+      "#search_result",
+      ".owl-carousel",
+      ".owl-carousel.owl-theme",
+      ".owl-wrapper-outer",
+      ".wrap-menu-primary",
+      ".menu-primary",
+      ".item",
+      ".chapter-list .row",
+      "#chapter-dropdown.navi-change-chapter",
+      ".container-chapter-reader",
+      ".panel-story-info-description",
+      ".comic-info-section",
+      "#chapter-list-container[data-api-url]",
+      ".genre-list",
+      ".list-comic-item-wrap",
+      ".panel_page_number"
+    ],
+    "scriptSrc": [
+      "owl.carousel",
+      "owl.carousel.min",
+      "jquery.min",
+      "cdn.example.org"
+    ],
+    "probePaths": [
+      "/item-list/latest",
+      "/search/story/test"
+    ],
+    "minScore": 15,
+    "usesWebViewMode": false
+  },
+  "selectors": {
+    "search": {
+      "path": "/search/story/{query}",
+      "item": "#search_result ul li, .panel-search-story .content-genres-item, .panel-content-genres .content-genres-item, .list-comic-item-wrap",
+      "title": "a .story-name, a h3, .genres-item-title a, h3 a",
+      "link": "a[href*='/manga/'], a[href*='/item/'], a",
+      "cover": "img",
+      "nextPage": ".panel_page_number .group_page a.page_select + a[href], .pagination .next a, .page-numbers .next a"
+    },
+    "genre": {
+      "pagePath": "/",
+      "filterPath": "/genre/{genre}",
+      "source": ".panel-category a[href*='/genre/'][title]",
+      "valueAttr": "href",
+      "valuePattern": "/genre/([^/?#]+)"
+    },
+    "details": {
+      "title": ".manga-info-content .manga-info-text h1, .comic-info-section .info-wrap h1, .story-info-right h1, .manga-title h1",
+      "cover": ".manga-info-pic img, .comic-info-section .thumbnail-wrap img, .story-info-left img, .info-image img, .manga-cover img",
+      "synopsis": "#contentBox, .panel-story-info-description, #noidungm, .manga-excerpt",
+      "authors": ".manga-info-text a[href*='/author/'], .info-wrap a[href*='/author/'], .variations-table .table-value a[href*='author'], .author a",
+      "artists": ".manga-info-text a[href*='/artist/'], .info-wrap a[href*='/artist/'], .variations-table .table-value a[href*='artist'], .artist a",
+      "tags": ".genre-list, .manga-info-text li.genres, .variations-table .table-value a[href*='genre'], .genres a, .tags a",
+      "status": ".comic-info-section .info-wrap > div:nth-child(2) p:last-child, .manga-info-text > li:nth-child(3), .variations-table .table-value.status-value, .status, .manga-status",
+      "contentRating": ""
+    },
+    "chapters": {
+      "item": ".chapter-list .row, .list-chapter .row, .chapters .row",
+      "link": "span > a[href*='/chapter-'], span a.chapter-link",
+      "title": "span > a[href*='/chapter-'], span a.chapter-link",
+      "date": "span:last-child, .chapter-time, .time",
+      "views": "span:nth-child(2)",
+      "order": "desc",
+      "premiumMarker": ".premium-badge, .vip-tag, [class*=\"coin\"], [class*=\"premium\"], .fa-coins, .fa-lock"
+    },
+    "pages": {
+      "strategies": [
+        {
+          "kind": "css",
+          "image": ".container-chapter-reader img, .chapter-content img, .reading-content img, #chapter-content img, .vung-doc img",
+          "srcAttributes": ["src", "data-src", "data-original"]
+        }
+      ]
+    },
+    "attribution": {
+      "logo": ".top-logo img, .logo img, .header-logo img, .site-logo img",
+      "credits": ".copyright, .footer-text, .site-credits"
+    }
+  },
+  "library": {
+    "addButton": ".btn-add-library, .add-to-library, [data-action=\"add-library\"]",
+    "removeButton": ".btn-remove-library, .remove-from-library, [data-action=\"remove-library\"]",
+    "isAddedIndicator": ".library-added, .in-library, [data-in-library=\"true\"]"
+  }
+}

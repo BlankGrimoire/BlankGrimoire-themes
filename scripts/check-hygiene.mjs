@@ -14,7 +14,7 @@ const ignoredDirectories = new Set([
   'coverage',
   '.turbo',
 ]);
-const ignoredFiles = new Set(['.DS_Store', 'pnpm-lock.yaml']);
+const ignoredFiles = new Set(['.DS_Store', 'pnpm-lock.yaml', 'package-lock.json']);
 const textExtensions = new Set([
   '.md',
   '.mdx',
@@ -152,8 +152,8 @@ function checkSecrets(content, file) {
 
 function checkSpdx(content, file) {
   const header = content.split('\n').slice(0, 5).join('\n');
-  if (!/SPDX-License-Identifier:\s*MIT/.test(header)) {
-    report(file, 1, 'missing SPDX-License-Identifier: MIT header');
+  if (!/SPDX-License-Identifier:\s*(MIT|MPL-2\.0)/.test(header)) {
+    report(file, 1, 'missing SPDX-License-Identifier: MIT or MPL-2.0 header');
   }
 }
 
