@@ -1,6 +1,6 @@
 {
   "name": "@blankgrimoire/theme-mangant",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Carousel List Grid theme adapter for BlankGrimoire",
   "blankgrimoire": {
     "adapterId": "theme.mangant",
