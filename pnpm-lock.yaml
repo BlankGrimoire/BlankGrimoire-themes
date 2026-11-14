@@ -9,12 +9,12 @@ importers:
   .:
     dependencies:
       '@blankgrimoire/types':
-        specifier: 1.1.0
-        version: 1.1.0
+        specifier: 1.3.0
+        version: 1.3.0
     devDependencies:
       '@blankgrimoire/cli':
-        specifier: 1.0.1
-        version: 1.0.1
+        specifier: 1.3.0
+        version: 1.3.0
       '@changesets/cli':
         specifier: ^3.0.3
         version: 3.0.3
@@ -28,14 +28,14 @@ importers:
   themes/mangant:
     devDependencies:
       '@blankgrimoire/runtime':
-        specifier: ^1.2.0
-        version: 1.2.0
+        specifier: ^1.3.0
+        version: 1.3.0
       '@blankgrimoire/testing':
-        specifier: ^1.0.0
-        version: 1.0.1
+        specifier: ^1.3.0
+        version: 1.3.0
       '@blankgrimoire/types':
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.3.0
+        version: 1.3.0
       typescript:
         specifier: ^5.3.0
         version: 5.9.3
@@ -48,27 +48,18 @@ packages:
   '@asamuzakjp/css-color@3.2.0':
     resolution: {integrity: sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==}
 
-  '@blankgrimoire/cli@1.0.1':
-    resolution: {integrity: sha512-rvMPkRlJDKoOQaAnqfkSCXXAzrUQP2qbxadoebg9z2fLFwU/883fMuOI501CuBnIKUxU0S3pXKhRRP8cHO9M5A==}
+  '@blankgrimoire/cli@1.3.0':
+    resolution: {integrity: sha512-JoFAh2TmBrKs3f3hCgKCZHDyj+RfDQInI9FfkhBJx2yJMBAJWBnfqgkHF+rP23+swN2m63i9rxnbFTdRfKL3HQ==}
     hasBin: true
 
-  '@blankgrimoire/runtime@1.0.1':
-    resolution: {integrity: sha512-BCx0WJauNh0z2asryJzoXSYok3RETKkOgA7sxmwu9AfYqk5TMHj/HiHIjG5TK5OcflraK+Wvw3AGJVz3sDWbKg==}
+  '@blankgrimoire/runtime@1.3.0':
+    resolution: {integrity: sha512-4z7COXH4OMWlY+0V0pOjsDmB0cvOk9JL3cQpbqC21iRpYG1Q+Ll/vS5ddqz2oXL6tnHnQKRlY09rx55KAeY6UA==}
 
-  '@blankgrimoire/runtime@1.2.0':
-    resolution: {integrity: sha512-VRdGGnA7CIa62vbXSUCg/noyt2a+7cpTCEkr8BMgJwpjVEzkM1CRH1GG5+HCgFjK1LEUS41wEwBICkRHisTfPQ==}
+  '@blankgrimoire/testing@1.3.0':
+    resolution: {integrity: sha512-DEgX/ZCLs8ZOAogr0p3a2sPhvQUSiLfFFa1xfeCaeSpsZjDifVsCWAW+bnCr7whSWdSKFJHleGS77JkOKuQ66A==}
 
-  '@blankgrimoire/testing@1.0.1':
-    resolution: {integrity: sha512-5T6m7zb998jKDJNmmbhHR6J3o6TXZrEinkcHNc2MLat2PzgUJetg+f/SYFwe4kNfdKlnZjMnTTV5H7JX/ChQiA==}
-
-  '@blankgrimoire/types@1.0.1':
-    resolution: {integrity: sha512-StBtyNuF/UxkCEdv1VFbNDiSlsZpj1aRPPRPbIon2jilVSFcSMTudurvZqwh29oDcbSkt3n8QtAAjJ9gwg7lWA==}
-
-  '@blankgrimoire/types@1.1.0':
-    resolution: {integrity: sha512-S2PXtAi5Lq5P0tIP0q/7eHe6KGHPPO9YNL/tXsUn5mvMU9gUwCoujJJ9RB1IvphPs4XOmzYXjOh7tQB0KzVmwA==}
-
-  '@blankgrimoire/types@1.2.0':
-    resolution: {integrity: sha512-kLumrgm9VKniisV0BDkDmGcpCT9octPcKhQEgqyDpUAeKNb0Y5cyP+KevvigCMZg3Hc7HOmKncDw28Az0f2q3w==}
+  '@blankgrimoire/types@1.3.0':
+    resolution: {integrity: sha512-o6R8FFZ5NGrYGd1alI+TwYXMVMHSJCd3mWNXj0FrSnpiTEdg5N1iNWiUrI1jW1LaA9uB2MYq9kCwmw/+SZd7GA==}
 
   '@changesets/apply-release-plan@8.1.1':
     resolution: {integrity: sha512-nk2Hbq3M9NeHMdaIRBDvawKrQJzXB9sGyBUE5yWnIKtvdcNCPj75zBekJYr0gTT2ecJH3eFeTrc8eisPImcv0Q==}
@@ -1237,23 +1228,19 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.4
       lru-cache: 10.4.3
 
-  '@blankgrimoire/cli@1.0.1':
+  '@blankgrimoire/cli@1.3.0':
     dependencies:
-      '@blankgrimoire/types': 1.0.1
+      '@blankgrimoire/types': 1.3.0
       esbuild: 0.24.2
 
-  '@blankgrimoire/runtime@1.0.1':
+  '@blankgrimoire/runtime@1.3.0':
     dependencies:
-      '@blankgrimoire/types': 1.0.1
+      '@blankgrimoire/types': 1.3.0
 
-  '@blankgrimoire/runtime@1.2.0':
+  '@blankgrimoire/testing@1.3.0':
     dependencies:
-      '@blankgrimoire/types': 1.2.0
-
-  '@blankgrimoire/testing@1.0.1':
-    dependencies:
-      '@blankgrimoire/runtime': 1.0.1
-      '@blankgrimoire/types': 1.0.1
+      '@blankgrimoire/runtime': 1.3.0
+      '@blankgrimoire/types': 1.3.0
       jsdom: 24.1.3
     transitivePeerDependencies:
       - bufferutil
@@ -1261,11 +1248,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@blankgrimoire/types@1.0.1': {}
-
-  '@blankgrimoire/types@1.1.0': {}
-
-  '@blankgrimoire/types@1.2.0': {}
+  '@blankgrimoire/types@1.3.0': {}
 
   '@changesets/apply-release-plan@8.1.1':
     dependencies:
