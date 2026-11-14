@@ -51,8 +51,8 @@
   "selectors": {
     "search": {
       "path": "/search/story/{query}",
-      "item": "#search_result ul li, .panel-search-story .content-genres-item, .panel-content-genres .content-genres-item, .list-comic-item-wrap",
-      "title": "a .story-name, a h3, .genres-item-title a, h3 a",
+      "item": "#search_result ul li, .panel-search-story .content-genres-item, .panel-content-genres .content-genres-item, .list-comic-item-wrap, .panel_story_list .story_item, .story_item",
+      "title": "a .story-name, a h3, .genres-item-title a, h3 a, .story_name a",
       "link": "a[href*='/manga/'], a[href*='/item/'], a",
       "cover": "img",
       "nextPage": ".panel_page_number .group_page a.page_select + a[href], .pagination .next a, .page-numbers .next a"
