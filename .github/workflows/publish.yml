@@ -90,6 +90,12 @@ jobs:
       - name: Verify publication locally
         if: steps.release.outputs.has_release == 'true'
         run: pnpm publish:check
+        env:
+          REFERRER_CDN: ${{ vars.REFERRER_CDN }}
+          REFERRER_IMG_R1: ${{ vars.REFERRER_IMG_R1 }}
+          REFERRER_IMG_R2: ${{ vars.REFERRER_IMG_R2 }}
+          REFERRER_IMGS_2: ${{ vars.REFERRER_IMGS_2 }}
+          REFERRER_ORIGIN: ${{ vars.REFERRER_ORIGIN }}
 
       - name: Build, sign, and validate publication
         if: steps.release.outputs.has_release == 'true'
@@ -97,6 +103,11 @@ jobs:
         env:
           BLANKGRIMOIRE_PRIVATE_KEY: ${{ secrets.BLANKGRIMOIRE_PRIVATE_KEY }}
           BLANKGRIMOIRE_PUBLIC_KEY: ${{ vars.BLANKGRIMOIRE_PUBLIC_KEY }}
+          REFERRER_CDN: ${{ vars.REFERRER_CDN }}
+          REFERRER_IMG_R1: ${{ vars.REFERRER_IMG_R1 }}
+          REFERRER_IMG_R2: ${{ vars.REFERRER_IMG_R2 }}
+          REFERRER_IMGS_2: ${{ vars.REFERRER_IMGS_2 }}
+          REFERRER_ORIGIN: ${{ vars.REFERRER_ORIGIN }}
 
       - name: Validate index.json
         if: steps.release.outputs.has_release == 'true'

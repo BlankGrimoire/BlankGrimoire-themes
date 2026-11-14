@@ -282,7 +282,7 @@ beforeAll(async () => {
   const { VMHarness } = await import('@blankgrimoire/testing');
 
   harness = new VMHarness(
-    ['example.org', 'cdn.example.org'],
+    ['example.org', 'cdn.example.org', 'example.com'],
     runtimeIIFE,
     themeAdapter,
   );
@@ -417,6 +417,21 @@ describe('Carousel List Grid Theme Adapter', () => {
       'Chapter 2',
       'Chapter 1',
     ]);
+  });
+
+  it('derives the chapter endpoint from the configured site origin', async () => {
+    // The same bundle serves any domain: the origin comes from the site the
+    // user configured, so a domain change needs no app or theme update.
+    const result = await harness.testTheme(
+      detailHTML,
+      'https://example.com/item/finding-the-invisible-star',
+      { mangaKey: 'https://example.com/item/finding-the-invisible-star' },
+    );
+
+    expect(result.chapters?.length).toBe(4);
+    expect(result.chapters?.[0].key).toBe(
+      'https://example.com/manga/finding-the-invisible-star/chapter-4',
+    );
   });
 
   it('extracts pages from reader', async () => {

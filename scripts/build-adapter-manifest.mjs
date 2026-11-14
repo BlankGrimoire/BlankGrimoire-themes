@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { runInNewContext } from 'node:vm';
 import { buildManifest } from '@blankgrimoire/cli';
@@ -85,13 +85,26 @@ if (
   );
 }
 
+const referrerHeaders = bundledAdapter.referrerHeaders ?? {};
+const manifestPath = join(packageDirectory, 'dist', 'manifest.json');
+
 await buildManifest({
   id: adapter.id,
   name: adapter.name,
   version: adapter.version,
   detectionSignature,
   sha256: createHash('sha256').update(bundle).digest('hex'),
-  outFile: join(packageDirectory, 'dist', 'manifest.json'),
+  referrerHeaders,
+  outFile: manifestPath,
 });
+
+// Older published CLI releases ignore the `referrerHeaders` option. Write the
+// map explicitly so the app can always read it, regardless of the CLI version.
+const generatedManifest = JSON.parse(await readFile(manifestPath, 'utf8'));
+generatedManifest.referrerHeaders = referrerHeaders;
+await writeFile(
+  manifestPath,
+  `${JSON.stringify(generatedManifest, null, 2)}\n`,
+);
 
 console.log(`Manifest ${adapter.id}@${adapter.version}`);

@@ -88,7 +88,11 @@
         {
           "kind": "css",
           "image": ".container-chapter-reader img, .chapter-content img, .reading-content img, #chapter-content img, .vung-doc img",
-          "srcAttributes": ["src", "data-src", "data-original"]
+          "srcAttributes": [
+            "src",
+            "data-src",
+            "data-original"
+          ]
         }
       ]
     },
@@ -101,5 +105,11 @@
     "addButton": ".btn-add-library, .add-to-library, [data-action=\"add-library\"]",
     "removeButton": ".btn-remove-library, .remove-from-library, [data-action=\"remove-library\"]",
     "isAddedIndicator": ".library-added, .in-library, [data-in-library=\"true\"]"
+  },
+  "referrerHeaders": {
+    "cdn.example.org": "https://example.org/",
+    "img-r1.example.org": "https://example.org/",
+    "img-r2.example.org": "https://example.org/",
+    "imgs-2.example.org": "https://example.org/"
   }
 }

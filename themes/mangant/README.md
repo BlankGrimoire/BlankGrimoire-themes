@@ -48,6 +48,7 @@ themes/mangant/
 ├── detection.json     # Detection signature
 ├── manifest.json      # Adapter metadata and mirrored selectors
 ├── bundle.js          # Adapter bundle (IIFE)
+├── scripts/           # Build-time referrer placeholder substitution
 ├── package.json       # NPM package config
 ├── tsconfig.json      # TypeScript config
 ├── index.test.ts      # VMHarness tests
@@ -78,11 +79,15 @@ element for each field, so selector order matters:
 ## Chapters
 
 The series page does not embed the chapter rows. It declares a JSON endpoint via
-`data-api-url` and renders the rows with page scripts. Because the runtime does
-not execute page scripts, the adapter supplies `hooks.getChapters`, which:
+`data-api-url` and renders the rows with page scripts. The runtime does not
+execute page scripts and hooks receive only the site context, not the DOM, so
+the endpoint path stays inside this theme. `hooks.getChapters`:
 
-1. Derives the origin and slug from the series key.
-2. Requests `{origin}/api/manga/{slug}/chapters?limit=50&offset=N`.
+1. Derives the origin and slug from the series key. The origin is always the
+   user's configured site, so a domain change needs no app or theme update.
+2. Requests `{origin}/api/manga/{slug}/chapters?limit=50&offset=N`. This path
+   is theme-owned: if the site changes it, publishing a new theme version is
+   enough and the app still needs no release.
 3. Follows `pagination.has_more` until every page is read.
 4. Emits absolute chapter keys (`{origin}/manga/{slug}/{chapter_slug}`),
    numeric `number`, and `publishedAt` normalized to milliseconds.
@@ -120,3 +125,26 @@ Genres are discovered from the home page category panel and exposed as
 - `source`: `.panel-category a[href*='/genre/'][title]` — CSS selector for the links
 - `valueAttr`/`valuePattern`: extract the `action` slug from `/genre/action`
 - `filterPath`: `/genre/{genre}` — result page used when a genre is selected
+
+## Referrer Headers
+
+Some image CDNs reject requests that do not carry the site that embeds them as
+the `Referer`. The adapter can publish an optional host-to-referrer map:
+
+```js
+referrerHeaders: {
+  "cdn.example.org": "https://example.org/",
+}
+```
+
+Committed values are placeholders. `scripts/substitute-referrers.mjs` rewrites
+only `dist/runtime.js` with the deployment's real hosts and origin, supplied by
+`referrer-headers.config.json` (gitignored) or by the `REFERRER_*` environment
+variables. The manifest generator then copies the map into
+`dist/manifest.json`. Source files never contain real domains.
+
+The map is optional. When it is empty, or when the CDN host is not listed, the
+app sends the request without a referrer and, if the CDN answers `401`/`403`,
+retries with the origin of the site that produced the image and remembers the
+mapping for later requests. No CDN domain has to be hardcoded in the app.
+
