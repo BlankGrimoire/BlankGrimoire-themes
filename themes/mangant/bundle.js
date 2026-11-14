@@ -21,9 +21,12 @@
     "use strict";
 
     // Some layouts render the chapter list with JavaScript and fetch it from a
-    // JSON endpoint. The endpoint is declared by the page itself through
-    // `data-api-url`; this hook reproduces that request so the list is also
-    // available when page scripts are not executed.
+    // JSON endpoint that the page declares through `data-api-url`. Hooks
+    // receive only the site context (not the DOM), so this hook queries the
+    // same endpoint shape the page uses. The path below is part of this
+    // theme's site structure: if the site changes it, a new theme version is
+    // enough and the app needs no release. The origin always comes from the
+    // user's configured site, so a domain change needs no change at all.
     function nativeHost() {
         if (typeof globalThis !== "undefined" && globalThis.__native) {
             return globalThis.__native;
@@ -271,6 +274,17 @@
             addButton: ".btn-add-library, .add-to-library, [data-action=\"add-library\"]",
             removeButton: ".btn-remove-library, .remove-from-library, [data-action=\"remove-library\"]",
             isAddedIndicator: ".library-added, .in-library, [data-in-library=\"true\"]"
+        },
+
+        // Optional CDN referrer overrides. The committed values are
+        // placeholders: the publish build replaces them with the deployment's
+        // real hosts through `scripts/substitute-referrers.mjs`. The app can
+        // also learn a working referrer at runtime, so an empty map is valid.
+        referrerHeaders: {
+            "cdn.example.org": "https://example.org/",
+            "img-r1.example.org": "https://example.org/",
+            "img-r2.example.org": "https://example.org/",
+            "imgs-2.example.org": "https://example.org/"
         }
     };
 

@@ -14,3 +14,4 @@ coverage/
 *.tsbuildinfo
 .turbo/
 *.log
+themes/mangant/referrer-headers.config.json

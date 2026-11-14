@@ -14,7 +14,14 @@ const ignoredDirectories = new Set([
   'coverage',
   '.turbo',
 ]);
-const ignoredFiles = new Set(['.DS_Store', 'pnpm-lock.yaml', 'package-lock.json']);
+const ignoredFiles = new Set([
+  '.DS_Store',
+  'pnpm-lock.yaml',
+  'package-lock.json',
+  // Local-only referrer values. The file is gitignored and is the designated
+  // place for real hosts during local builds.
+  'referrer-headers.config.json',
+]);
 const textExtensions = new Set([
   '.md',
   '.mdx',
