@@ -2,17 +2,20 @@
 // SPDX-License-Identifier: MIT
 
 /**
- * Replaces the referrer placeholders in the built bundle with the real CDN
- * hosts and origin of a deployment.
+ * Prepares `dist/runtime.js` for publication.
  *
- * Sources always keep generic placeholders (`*.example.org`). Only the
- * generated `dist/runtime.js` is rewritten, so a real domain can never end up
- * in a committed file. The manifest generator runs afterwards and reads the
- * substituted map from the bundled adapter.
+ * Two rewrites happen here, both on the generated bundle only:
  *
- * Values come from `referrer-headers.config.json` (gitignored, local use) or,
- * when the file is absent, from `REFERRER_*` environment variables (CI).
- * Both use the same shape: placeholder key -> real value.
+ * 1. The `version` field is set from `package.json`. A changeset bumps the
+ *    package version, so the bundle must follow it; the manifest generator
+ *    rejects a bundle whose version differs from the package.
+ * 2. The referrer placeholders (`*.example.org`) are replaced with the real
+ *    CDN hosts and origin of a deployment.
+ *
+ * Sources always keep generic placeholders, so a real domain can never end up
+ * in a committed file. Values come from `referrer-headers.config.json`
+ * (gitignored, local use) or, when the file is absent, from `REFERRER_*`
+ * environment variables (CI).
  */
 
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
@@ -20,6 +23,7 @@ import { join } from 'node:path';
 
 const packageDir = process.cwd();
 const distBundlePath = join(packageDir, 'dist', 'runtime.js');
+const packagePath = join(packageDir, 'package.json');
 const configPath = join(packageDir, 'referrer-headers.config.json');
 
 const placeholders = [
@@ -62,43 +66,55 @@ if (existsSync(configPath)) {
   }
 }
 
-const configured = Object.keys(replacements).length;
 if (!existsSync(distBundlePath)) {
   throw new Error(
-    `${distBundlePath} is missing. Run "pnpm build" before substituting referrers.`,
+    `${distBundlePath} is missing. Run "pnpm build" before preparing the bundle.`,
   );
-}
-
-if (configured === 0) {
-  console.log(
-    'No referrer values configured; keeping placeholders. The app can still ' +
-      'learn the working referrer at runtime.',
-  );
-  process.exit(0);
 }
 
 let bundle = readFileSync(distBundlePath, 'utf8');
 
-// Only the referrer map may contain deployment-specific hosts. The detection
-// signature stays generic so it keeps matching the committed detection.json.
-const mapPattern = /(referrerHeaders\s*:\s*\{)([\s\S]*?)(\})/;
-const mapMatch = bundle.match(mapPattern);
-if (!mapMatch) {
-  throw new Error(
-    `${distBundlePath} does not export a referrerHeaders map; cannot substitute.`,
+// The package version is the single source of truth. Changesets bump
+// `package.json` only, so the bundle version must be injected here.
+const packageJSON = JSON.parse(readFileSync(packagePath, 'utf8'));
+const versionPattern = /(\n\s*version:\s*)"[^"]*"/;
+if (!versionPattern.test(bundle)) {
+  throw new Error(`${distBundlePath} does not export a version field.`);
+}
+bundle = bundle.replace(
+  versionPattern,
+  (_match, prefix) => `${prefix}${JSON.stringify(packageJSON.version)}`,
+);
+
+const configured = Object.keys(replacements).length;
+if (configured > 0) {
+  // Only the referrer map may contain deployment-specific hosts. The detection
+  // signature stays generic so it keeps matching the committed detection.json.
+  const mapPattern = /(referrerHeaders\s*:\s*\{)([\s\S]*?)(\})/;
+  const mapMatch = bundle.match(mapPattern);
+  if (!mapMatch) {
+    throw new Error(
+      `${distBundlePath} does not export a referrerHeaders map; cannot substitute.`,
+    );
+  }
+
+  let mapBody = mapMatch[2];
+  for (const [placeholder, real] of Object.entries(replacements)) {
+    mapBody = mapBody.split(placeholder).join(real);
+  }
+
+  bundle = bundle.replace(mapPattern, (_match, head, _body, tail) => head + mapBody + tail);
+
+  const remaining = placeholders.filter((placeholder) => mapBody.includes(placeholder));
+  console.log(
+    `Substituted ${configured} referrer value(s) in dist/runtime.js` +
+      (remaining.length > 0 ? `; placeholders left: ${remaining.join(', ')}` : ''),
+  );
+} else {
+  console.log(
+    'No referrer values configured; keeping placeholders. The app can still ' +
+      'learn the working referrer at runtime.',
   );
 }
 
-let mapBody = mapMatch[2];
-for (const [placeholder, real] of Object.entries(replacements)) {
-  mapBody = mapBody.split(placeholder).join(real);
-}
-
-bundle = bundle.replace(mapPattern, (_match, head, _body, tail) => head + mapBody + tail);
 writeFileSync(distBundlePath, bundle);
-
-const remaining = placeholders.filter((placeholder) => mapBody.includes(placeholder));
-console.log(
-  `Substituted ${configured} referrer value(s) in dist/runtime.js` +
-    (remaining.length > 0 ? `; placeholders left: ${remaining.join(', ')}` : ''),
-);

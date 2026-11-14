@@ -138,7 +138,9 @@ referrerHeaders: {
 ```
 
 Committed values are placeholders. `scripts/substitute-referrers.mjs` rewrites
-only `dist/runtime.js` with the deployment's real hosts and origin, supplied by
+only `dist/runtime.js`: it injects the `package.json` version (changesets bump
+the package, so the bundle must follow it) and replaces the referrer
+placeholders with the deployment's real hosts and origin, supplied by
 `referrer-headers.config.json` (gitignored) or by the `REFERRER_*` environment
 variables. The manifest generator then copies the map into
 `dist/manifest.json`. Source files never contain real domains.
