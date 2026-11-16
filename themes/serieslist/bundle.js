@@ -87,6 +87,9 @@
                 synopsis: ".seriestucontentr .entry-content, .summary .entry-content",
                 altTitles: ".seriestualt, .alternative .desktop-titles",
                 tags: ".seriestugenre a, .genres-container .mgen a",
+                // One element per label: a group of sibling anchors otherwise
+                // collapses into the first genre or one joined string.
+                tagsItem: ".seriestugenre a, .genres-container .mgen a",
                 // The stacked variant exposes status in the first info-table
                 // row; the split variant uses a labelled info list.
                 status: ".infotable tr:nth-child(1) td:nth-child(2), .tsinfo .imptdt:nth-child(2) i",

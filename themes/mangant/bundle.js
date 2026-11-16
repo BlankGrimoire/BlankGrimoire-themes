@@ -217,6 +217,9 @@
                 // and newlines. `.genre-list` holds one anchor per line, so it
                 // yields every genre without the "Genres :" label.
                 tags: ".genre-list, .manga-info-text li.genres, .variations-table .table-value a[href*='genre'], .genres a, .tags a",
+                // One element per label. Takes every linked genre even when the
+                // page is minified and the anchors have no separators.
+                tagsItem: ".genre-list a, .manga-info-text li.genres a, .variations-table .table-value a[href*='genre'], .genres a, .tags a",
                 // The status value is rendered without a link in the newer
                 // `comic-info-section` layout; fall back to the prefixed text.
                 status: ".comic-info-section .info-wrap > div:nth-child(2) p:last-child, .manga-info-text > li:nth-child(3), .variations-table .table-value.status-value, .status, .manga-status",

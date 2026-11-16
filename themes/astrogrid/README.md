@@ -31,6 +31,10 @@ same API the page uses:
   plain-text synopsis;
 - chapters carry real numbers and ISO publication dates.
 
+The chapter endpoint rejects very large page sizes with HTTP 403, so the hook
+reads it in pages of 200 with an offset cursor and stops on the first short
+page.
+
 `networkHosts` never names a domain. The host replaces `{host}` with the site
 host (dropping a leading `www.`) and accepts the expansion only when it stays on
 the site's own domain.
@@ -71,6 +75,10 @@ The threshold is `minScore: 60`: with the generator meta (`+30` on the host
 scale) two markers are required, so an unrelated Astro site cannot claim the
 theme from the generator alone. The home layout scores `75`, listing pages
 `75`, series pages `90`.
+
+Series and reader pages sit behind a challenge, so the signature sets
+`usesWebViewMode: true`. The host resolves it in its hidden web view and reuses
+the cookies for the page fetch that the runtime needs before the hooks run.
 
 ## Installation
 

@@ -78,8 +78,10 @@ element for each field, so selector order matters:
   block is a site notice rendered earlier in the document and would win the match.
 - **status**: `.comic-info-section .info-wrap > div:nth-child(2) p:last-child`,
   then the legacy `.manga-info-text > li:nth-child(3)`.
-- **tags**: `.genre-list`. The runtime splits the selected element's text on commas
-  and newlines, so every genre anchor is returned without the `"Genres :"` label.
+- **tags**: `tagsItem` collects one label per genre anchor (`.genre-list a`,
+  `.variations-table ... a[href*='genre']`), so a minified page cannot collapse
+  the list into one string. `tags` stays as the fallback for variants that
+  render the labels as text.
 - **authors / artists**: only linked values are extracted. The current layout
   renders them as prefixed text (`"Author(s) : ..."`), which is skipped on
   purpose so the UI does not show a duplicated label.

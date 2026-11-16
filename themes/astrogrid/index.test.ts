@@ -281,6 +281,26 @@ beforeAll(() => {
           return searchResults[offset] ?? searchResults['0'];
         }
         if (url.pathname.endsWith('/chapters')) {
+          // The real endpoint answers HTTP 403 for very large limits. Refuse
+          // them here so a regression back to limit=500 fails the suite.
+          const limit = Number(url.searchParams.get('limit') ?? '0');
+          if (limit > 450) {
+            return { status: 403, body: 'Forbidden' };
+          }
+          if (url.pathname.includes('lorem-paged')) {
+            const offset = Number(url.searchParams.get('offset') ?? '0');
+            const entry = (number: number) => ({
+              number,
+              slug: `chapter-${number}`,
+              is_premium: false,
+              published_at: '2026-03-25T19:09:43.123456Z',
+            });
+            const data =
+              offset === 0
+                ? Array.from({ length: 200 }, (_, index) => entry(400 - index))
+                : [entry(200), entry(199)];
+            return { data };
+          }
           return chaptersPayload;
         }
         if (url.pathname.startsWith('/api/series/')) {
@@ -429,6 +449,18 @@ describe('Astro Grid Theme Adapter', () => {
     ]);
     // The rendered date is relative, so the runtime leaves it out.
     expect(result.chapters?.[0]?.publishedAt).toBeUndefined();
+  });
+
+  it('pages the chapter endpoint until a short batch', async () => {
+    const result = await harness.testTheme(
+      seriesHTML,
+      'https://example.org/comics/lorem-paged-7ba78ec7',
+      { mangaKey: 'https://example.org/comics/lorem-paged-7ba78ec7' },
+    );
+
+    expect(result.chapters?.length).toBe(202);
+    expect(result.chapters?.[0]?.number).toBe(400);
+    expect(result.chapters?.[201]?.number).toBe(199);
   });
 
   it('derives the API host from the configured site', async () => {

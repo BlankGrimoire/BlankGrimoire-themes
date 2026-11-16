@@ -168,7 +168,7 @@ const detailHTML = `<!DOCTYPE html>
         <h1>Finding the Invisible Star</h1>
         <table class="variations-table">
             <tr><td class="table-label">Author(s)</td><td class="table-value"><a href="/author/some-author">Some Author</a></td></tr>
-            <tr><td class="table-label">Genre(s)</td><td class="table-value"><a href="/genre/action">Action</a></td></tr>
+            <tr><td class="table-label">Genre(s)</td><td class="table-value"><a href="/genre/action">Action</a> <a href="/genre/fantasy">Fantasy</a></td></tr>
             <tr><td class="table-label">Status</td><td class="table-value status-value">Ongoing</td></tr>
         </table>
         <div class="panel-story-info-description">Description of the series...</div>
@@ -396,7 +396,8 @@ describe('Carousel List Grid Theme Adapter', () => {
     
     expect(result.details).toBeDefined();
     expect(result.details?.title).toBe('Finding the Invisible Star');
-    expect(result.details?.tags).toContain('Action');
+    // `tagsItem` returns every linked genre, not the first one.
+    expect(result.details?.tags).toEqual(['Action', 'Fantasy']);
     expect(result.details?.status).toBe('ongoing');
   });
 
