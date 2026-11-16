@@ -1,6 +1,6 @@
 {
   "name": "@blankgrimoire/theme-serieslist",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Grid library and chapter list theme adapter for BlankGrimoire",
   "blankgrimoire": {
     "adapterId": "theme.serieslist",
