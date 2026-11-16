@@ -55,7 +55,7 @@
                 ".chnav",
                 "#readerarea"
             ],
-            minScore: 10,
+            minScore: 60,
             usesWebViewMode: false
         },
 

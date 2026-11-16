@@ -44,6 +44,10 @@ The theme is detected by matching these selectors on the page:
 - `.ts-breadcrumb`, `.headpost`, `.chapterbody` — series and chapter page scaffolding
 - `.chnav`, `#readerarea` — reader navigation and container
 
+The threshold is `minScore: 60`: four selectors on the host scale (`+15`
+each). A single shared class cannot claim the theme; listing pages score
+`90`–`105` and series pages `180`.
+
 ## Reader extraction
 
 Two strategies run in order, and the first non-empty result wins:
