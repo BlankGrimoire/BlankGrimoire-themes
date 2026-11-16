@@ -1,0 +1,15 @@
+{
+  "metaGenerator": "Astro",
+  "selectors": [
+    "#home-main",
+    "#home-side",
+    "[data-content-mode-link]",
+    "#series-grid",
+    ".series-card",
+    "#continue-reading-data",
+    "#description-text",
+    "[data-page-index]"
+  ],
+  "minScore": 60,
+  "usesWebViewMode": false
+}

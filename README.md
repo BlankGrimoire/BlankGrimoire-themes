@@ -11,14 +11,26 @@ matching theme automatically.
 | Adapter | Package | Covers | Kind |
 |---|---|---|---|
 | `theme.mangant` | `@blankgrimoire/theme-mangant` | Carousel / grid layouts with chapter lists and reader pages | Specific |
+| `theme.serieslist` | `@blankgrimoire/theme-serieslist` | Card-grid libraries with paginated chapter lists, in two header variants | Specific |
+| `theme.astrogrid` | `@blankgrimoire/theme-astrogrid` | Statically generated card grids with a JSON chapter list and page-based reader | Specific |
 
 All adapters are implemented and versioned independently with Changesets.
 
 ### Detection and overlap
 
-Detection signatures are intentionally disjoint. The carousel-grid adapter
-requires a distinctive set of carousel and chapter-reader selectors rather
-than a specific domain.
+Detection signatures are intentionally disjoint. Each adapter requires a
+distinctive set of structural selectors rather than a specific domain:
+
+- `theme.mangant` — carousel wrappers, chapter rows and reader containers.
+- `theme.serieslist` — Madara-style card grids, `.eplister` chapter lists and
+  two series-header variants.
+- `theme.astrogrid` — the generator meta plus `#series-grid` / `.series-card`,
+  `#continue-reading-data` and `[data-page-index]`.
+
+Adapters that read a JSON API on a sibling host declare it as a template
+(`networkHosts: ["api.{host}"]`). No domain is committed: the app expands the
+template against the site the user configured and refuses anything outside that
+site's domain.
 
 If a future adapter would overlap an existing one, merge or deprecate it
 instead of publishing both. When scores tie, the app's documented tie-break
