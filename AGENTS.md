@@ -9,7 +9,7 @@ Human contributors: see `CONTRIBUTING.md` and the organization's `.github` repos
 |-----|-------|
 | Repository | BlankGrimoire-themes |
 | Stack | TypeScript pnpm monorepo for theme adapters |
-| Adapters | `theme.mangant` |
+| Adapters | `theme.astrogrid`, `theme.mangant`, `theme.serieslist` |
 | License | MIT |
 | Source header | `// SPDX-License-Identifier: MIT` (or `# SPDX-License-Identifier: MIT` for shell) at the top of every source file |
 | Contact | blankgrimoire.dev@gmail.com |
