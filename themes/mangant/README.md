@@ -26,7 +26,10 @@ The theme is detected by matching these selectors on the page:
 - `.container-chapter-reader` - Reader container
 - `.panel-story-info-description` - Description panel
 
-Script patterns: `owl.carousel`, `owl.carousel.min`, `jquery.min`, `cdn.example.org`
+Detection is selector-only. Earlier versions also matched on script sources
+(`owl.carousel`, `jquery.min`, a CDN placeholder), but a single shared script
+already scored above the threshold and made this adapter match unrelated
+themes, so the `scriptSrc` list was removed.
 
 ## Installation
 

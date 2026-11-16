@@ -169,12 +169,6 @@
                 ".list-comic-item-wrap",
                 ".panel_page_number"
             ],
-            scriptSrc: [
-                "owl.carousel",
-                "owl.carousel.min",
-                "jquery.min",
-                "cdn.example.org"
-            ],
             probePaths: [
                 "/item-list/latest",
                 "/search/story/test"
