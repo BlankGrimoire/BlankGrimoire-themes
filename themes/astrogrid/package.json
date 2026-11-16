@@ -1,6 +1,6 @@
 {
   "name": "@blankgrimoire/theme-astrogrid",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Grid library theme adapter for statically generated content sites",
   "blankgrimoire": {
     "adapterId": "theme.astrogrid",
