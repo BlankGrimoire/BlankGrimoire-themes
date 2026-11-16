@@ -4,8 +4,11 @@
 
 1. **Themes, not websites.** An adapter must target a theme or framework.
    Adapters named after, or built for, a single website will be rejected.
-2. **No domains.** No real domain may appear in code, tests, comments,
-   commit messages or issues.
+2. **No domains in the repository.** No real domain may appear in code,
+   tests, fixtures, comments, commit messages, adapter metadata or
+   documentation. Issue reports are the exception: name the site there so a
+   maintainer can reproduce its layout. Inside the repository, use placeholders
+   such as `example.org`.
 3. **Synthetic fixtures only.** Test HTML must be written by hand and contain
    placeholder text and images (e.g. `Lorem ipsum`, `https://example.org`).
    Never copy markup, text or images from real websites.
@@ -46,7 +49,9 @@ changelogs, or create release tags by hand.
 ## Reporting a broken adapter
 
 Describe **which structure changed** (e.g. "chapter list now loaded via AJAX")
-using a synthetic HTML snippet. Do not post links to websites.
+using a synthetic HTML snippet. An issue may name the site and its URL — that
+is how the engine gets identified — but the repository itself stays free of real
+domains.
 
 ## License
 
