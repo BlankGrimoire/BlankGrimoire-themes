@@ -359,8 +359,8 @@ describe('Carousel List Grid Theme Adapter', () => {
     const result = await harness.testTheme(homeHTML, 'https://example.org/');
     
     expect(result.detected).toBe(true);
-    expect(result.score).toBeGreaterThanOrEqual(15);
-    expect(result.detectionSignature.minScore).toBe(15);
+    expect(result.score).toBeGreaterThanOrEqual(45);
+    expect(result.detectionSignature.minScore).toBe(45);
   });
 
   it('exposes the genre discovery and filtering contract', () => {

@@ -26,7 +26,15 @@ The theme is detected by matching these selectors on the page:
 - `.container-chapter-reader` - Reader container
 - `.panel-story-info-description` - Description panel
 
-Script patterns: `owl.carousel`, `owl.carousel.min`, `jquery.min`, `cdn.example.org`
+Detection is selector-only. Earlier versions also matched on script sources
+(`owl.carousel`, `jquery.min`, a CDN placeholder), but a single shared script
+already scored above the threshold and made this adapter match unrelated
+themes, so the `scriptSrc` list was removed.
+
+The threshold is `minScore: 45`: three selectors on the host scale (`+15` each).
+A listing page scores `75` and a series page `120`, while unrelated themes score
+`0`. `.item` is not part of the signature because a class that generic should
+not contribute to detection.
 
 ## Installation
 
