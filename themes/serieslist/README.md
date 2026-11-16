@@ -65,9 +65,9 @@ Two strategies run in order, and the first non-empty result wins:
 - The chapter list is read from the series page in a single request. Sites that
   paginate it usually render the newest entries first, which matches the `desc`
   order.
-- `tags` exposes the first label only: the runtime reads a single node and
-  splits its text, so a group of sibling links yields one value. Full genre
-  lists need a contract change, tracked outside this adapter.
+- Genres are read with `tagsItem`, so a group of sibling genre links returns
+  every label instead of the first one. The plain `tags` field stays as the
+  fallback for variants that render the labels as one text node.
 
 ## Installation
 

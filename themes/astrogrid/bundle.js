@@ -258,10 +258,30 @@
             return [];
         }
 
-        var payload = await requestJSON(
-            apiURL(ctx, "/api/series/" + encodeURIComponent(slug) + "/chapters?limit=500")
-        );
-        var data = payload && Array.isArray(payload.data) ? payload.data : [];
+        // The chapter endpoint rejects very large limits with HTTP 403, so the
+        // list is paged with a safe page size and an offset cursor.
+        var limit = 200;
+        var data = [];
+        for (var page = 0; page < 50; page++) {
+            var payload = await requestJSON(
+                apiURL(
+                    ctx,
+                    "/api/series/" +
+                        encodeURIComponent(slug) +
+                        "/chapters?limit=" +
+                        limit +
+                        "&offset=" +
+                        page * limit
+                )
+            );
+            var batch = payload && Array.isArray(payload.data) ? payload.data : [];
+            for (var batchIndex = 0; batchIndex < batch.length; batchIndex++) {
+                data.push(batch[batchIndex]);
+            }
+            if (batch.length < limit) {
+                break;
+            }
+        }
         var origin = originOf(key) || originOf(ctx && ctx.baseURL);
         var chapters = [];
 
@@ -320,7 +340,9 @@
                 "[data-page-index]"
             ],
             minScore: 60,
-            usesWebViewMode: false
+            // Series and reader pages sit behind a challenge; the host resolves
+            // it in its hidden web view before extraction.
+            usesWebViewMode: true
         },
 
         // Declarative fallback for pages rendered without JavaScript. The hooks

@@ -378,7 +378,8 @@ describe('Series List Theme Adapter', () => {
     expect(result.details?.altTitles).toContain('Ipsum Lorem');
     expect(result.details?.synopsis).toContain('Placeholder synopsis');
     expect(result.details?.status).toBe('ongoing');
-    expect(result.details?.tags).toContain('Fantasy');
+    // `tagsItem` returns every sibling genre anchor, not just the first.
+    expect(result.details?.tags).toEqual(['Fantasy', 'Drama']);
     expect(result.details?.coverURL).toBe(
       'https://example.org/media/lorem-cover.jpg',
     );

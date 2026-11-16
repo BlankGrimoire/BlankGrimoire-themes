@@ -11,5 +11,5 @@
     "[data-page-index]"
   ],
   "minScore": 60,
-  "usesWebViewMode": false
+  "usesWebViewMode": true
 }
