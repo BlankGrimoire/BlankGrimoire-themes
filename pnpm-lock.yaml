@@ -9,12 +9,12 @@ importers:
   .:
     dependencies:
       '@blankgrimoire/types':
-        specifier: 1.4.0
-        version: 1.4.0
+        specifier: 1.4.1
+        version: 1.4.1
     devDependencies:
       '@blankgrimoire/cli':
-        specifier: 1.4.0
-        version: 1.4.0
+        specifier: 1.4.1
+        version: 1.4.1
       '@changesets/cli':
         specifier: ^3.0.3
         version: 3.0.3
@@ -28,14 +28,14 @@ importers:
   themes/astrogrid:
     devDependencies:
       '@blankgrimoire/runtime':
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.4.1
+        version: 1.4.1
       '@blankgrimoire/testing':
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.4.1
+        version: 1.4.1
       '@blankgrimoire/types':
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.4.1
+        version: 1.4.1
       typescript:
         specifier: ^5.6.0
         version: 5.9.3
@@ -46,14 +46,14 @@ importers:
   themes/mangant:
     devDependencies:
       '@blankgrimoire/runtime':
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.4.1
+        version: 1.4.1
       '@blankgrimoire/testing':
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.4.1
+        version: 1.4.1
       '@blankgrimoire/types':
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.4.1
+        version: 1.4.1
       typescript:
         specifier: ^5.3.0
         version: 5.9.3
@@ -64,14 +64,14 @@ importers:
   themes/serieslist:
     devDependencies:
       '@blankgrimoire/runtime':
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.4.1
+        version: 1.4.1
       '@blankgrimoire/testing':
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.4.1
+        version: 1.4.1
       '@blankgrimoire/types':
-        specifier: ^1.4.0
-        version: 1.4.0
+        specifier: ^1.4.1
+        version: 1.4.1
       typescript:
         specifier: ^5.6.0
         version: 5.9.3
@@ -84,18 +84,18 @@ packages:
   '@asamuzakjp/css-color@3.2.0':
     resolution: {integrity: sha512-K1A6z8tS3XsmCMM86xoWdn7Fkdn9m6RSVtocUrJYIwZnFVkng/PvkEoWtOWmP+Scc6saYWHWZYbndEEXxl24jw==}
 
-  '@blankgrimoire/cli@1.4.0':
-    resolution: {integrity: sha512-V3FDgdybDh5aWAQeTt561y68Ed2ET46HTiW8FPngMZ6UoeWno8TJnQQaUczsg9LfGJu2wNmw48xD9UppbQO8VA==}
+  '@blankgrimoire/cli@1.4.1':
+    resolution: {integrity: sha512-44tshZhCn4cPHytAmj3oafqxw3SfdQ7Wx7f1XyQPznEa1v4J7qVEBHKOE315HZ++SuddRJeIpWGqyBvWYUSO7g==}
     hasBin: true
 
-  '@blankgrimoire/runtime@1.4.0':
-    resolution: {integrity: sha512-ln9DWi2Wf07RQvPpBbL0TMFb0UUIXaf5Yhzc2TlEcijTi56FICVBb4a+OwqRzPXEiPZ+bdGX9nf3yHG8tiNX0Q==}
+  '@blankgrimoire/runtime@1.4.1':
+    resolution: {integrity: sha512-wDVSlXFczNMyc4hVY/mpf5qvV9jTkddZ7/pBcEn+WPcgX1TU5lenA3N2RGA6JGGIRg3b5wE1I7iUJ+z9LSdGCQ==}
 
-  '@blankgrimoire/testing@1.4.0':
-    resolution: {integrity: sha512-go50l/wfXXWGv4ibq62Q2d6LQW+zppaWqdkNDyq/men3GI3mlAL4hsBCVRsQ/G8Ru/hptD0Y/V1Rw0l3WPE6Hg==}
+  '@blankgrimoire/testing@1.4.1':
+    resolution: {integrity: sha512-gv6d8DVR28q4dfxWWpe9funlSb1eZ6NDhR6WrJfzCDTgv7qd1YWgjQd0W/zv+SvQXdunOIlYejl5Aa8iaQdPZQ==}
 
-  '@blankgrimoire/types@1.4.0':
-    resolution: {integrity: sha512-EZRwVct3VHFmn+DFEr9fIKEzWi4FD+frWa4dq6qCy5hoYDfjlY+K1zB8954mIECC6aE8lNSTB3nMmqLg/Qv0Iw==}
+  '@blankgrimoire/types@1.4.1':
+    resolution: {integrity: sha512-J50eTEQ6Dl4NQEa/Q7EGLbxXg85r/i2WSuFMLfpeNsldknLcijzCOtDcQUqUL+EHhBhytSzIs+oXTqMVHv8cag==}
 
   '@changesets/apply-release-plan@8.1.1':
     resolution: {integrity: sha512-nk2Hbq3M9NeHMdaIRBDvawKrQJzXB9sGyBUE5yWnIKtvdcNCPj75zBekJYr0gTT2ecJH3eFeTrc8eisPImcv0Q==}
@@ -1264,19 +1264,19 @@ snapshots:
       '@csstools/css-tokenizer': 3.0.4
       lru-cache: 10.4.3
 
-  '@blankgrimoire/cli@1.4.0':
+  '@blankgrimoire/cli@1.4.1':
     dependencies:
-      '@blankgrimoire/types': 1.4.0
+      '@blankgrimoire/types': 1.4.1
       esbuild: 0.24.2
 
-  '@blankgrimoire/runtime@1.4.0':
+  '@blankgrimoire/runtime@1.4.1':
     dependencies:
-      '@blankgrimoire/types': 1.4.0
+      '@blankgrimoire/types': 1.4.1
 
-  '@blankgrimoire/testing@1.4.0':
+  '@blankgrimoire/testing@1.4.1':
     dependencies:
-      '@blankgrimoire/runtime': 1.4.0
-      '@blankgrimoire/types': 1.4.0
+      '@blankgrimoire/runtime': 1.4.1
+      '@blankgrimoire/types': 1.4.1
       jsdom: 24.1.3
     transitivePeerDependencies:
       - bufferutil
@@ -1284,7 +1284,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@blankgrimoire/types@1.4.0': {}
+  '@blankgrimoire/types@1.4.1': {}
 
   '@changesets/apply-release-plan@8.1.1':
     dependencies:

@@ -19,13 +19,13 @@
     "version": "changeset version"
   },
   "devDependencies": {
-    "@blankgrimoire/cli": "1.4.0",
+    "@blankgrimoire/cli": "1.4.1",
     "@changesets/cli": "^3.0.3",
     "@types/node": "^22.10.0",
     "typescript": "^5.6.0",
-    "@blankgrimoire/types": "1.4.0"
+    "@blankgrimoire/types": "1.4.1"
   },
   "dependencies": {
-    "@blankgrimoire/types": "1.4.0"
+    "@blankgrimoire/types": "1.4.1"
   }
 }
