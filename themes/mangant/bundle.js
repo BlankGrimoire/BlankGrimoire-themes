@@ -158,7 +158,6 @@
                 ".owl-wrapper-outer",
                 ".wrap-menu-primary",
                 ".menu-primary",
-                ".item",
                 ".chapter-list .row",
                 "#chapter-dropdown.navi-change-chapter",
                 ".container-chapter-reader",
@@ -173,7 +172,7 @@
                 "/item-list/latest",
                 "/search/story/test"
             ],
-            minScore: 15,
+            minScore: 45,
             usesWebViewMode: false
         },
 
