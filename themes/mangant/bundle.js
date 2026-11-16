@@ -158,7 +158,6 @@
                 ".owl-wrapper-outer",
                 ".wrap-menu-primary",
                 ".menu-primary",
-                ".item",
                 ".chapter-list .row",
                 "#chapter-dropdown.navi-change-chapter",
                 ".container-chapter-reader",
@@ -169,17 +168,11 @@
                 ".list-comic-item-wrap",
                 ".panel_page_number"
             ],
-            scriptSrc: [
-                "owl.carousel",
-                "owl.carousel.min",
-                "jquery.min",
-                "cdn.example.org"
-            ],
             probePaths: [
                 "/item-list/latest",
                 "/search/story/test"
             ],
-            minScore: 15,
+            minScore: 45,
             usesWebViewMode: false
         },
 

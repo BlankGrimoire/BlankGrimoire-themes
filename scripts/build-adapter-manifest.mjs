@@ -86,6 +86,7 @@ if (
 }
 
 const referrerHeaders = bundledAdapter.referrerHeaders ?? {};
+const networkHosts = bundledAdapter.networkHosts ?? [];
 const manifestPath = join(packageDirectory, 'dist', 'manifest.json');
 
 await buildManifest({
@@ -95,13 +96,16 @@ await buildManifest({
   detectionSignature,
   sha256: createHash('sha256').update(bundle).digest('hex'),
   referrerHeaders,
+  networkHosts,
   outFile: manifestPath,
 });
 
-// Older published CLI releases ignore the `referrerHeaders` option. Write the
-// map explicitly so the app can always read it, regardless of the CLI version.
+// Older published CLI releases ignore the `referrerHeaders` and `networkHosts`
+// options. Write both explicitly so the app can always read them, regardless of
+// the CLI version.
 const generatedManifest = JSON.parse(await readFile(manifestPath, 'utf8'));
 generatedManifest.referrerHeaders = referrerHeaders;
+generatedManifest.networkHosts = networkHosts;
 await writeFile(
   manifestPath,
   `${JSON.stringify(generatedManifest, null, 2)}\n`,

@@ -18,7 +18,9 @@ packages.
 
 | Package | Adapter id | Detection marker | Kind |
 |---|---|---|---|
+| `astrogrid` | `theme.astrogrid` | Astro generator meta plus grid and reader markers | Specific |
 | `mangant` | `theme.mangant` | Carousel / grid layout selectors | Specific |
+| `serieslist` | `theme.serieslist` | Madara-style card grid and chapter list | Specific |
 
 `package.json` owns the version and the public `blankgrimoire` metadata. The
 shared scripts `scripts/build-adapter-bundle.mjs` and

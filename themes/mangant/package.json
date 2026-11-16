@@ -30,13 +30,13 @@
   "author": "BlankGrimoire",
   "license": "MPL-2.0",
   "devDependencies": {
-    "@blankgrimoire/runtime": "^1.3.0",
-    "@blankgrimoire/testing": "^1.3.0",
-    "@blankgrimoire/types": "^1.3.0",
+    "@blankgrimoire/runtime": "^1.4.0",
+    "@blankgrimoire/testing": "^1.4.0",
+    "@blankgrimoire/types": "^1.4.0",
     "typescript": "^5.3.0",
     "vitest": "^1.6.1"
   },
   "peerDependencies": {
-    "@blankgrimoire/types": "^1.3.0"
+    "@blankgrimoire/types": "^1.4.0"
   }
 }

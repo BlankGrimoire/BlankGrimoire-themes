@@ -1,0 +1,26 @@
+{
+  "selectors": [
+    ".listupd",
+    ".listupd .bsx",
+    ".bsx > a .limit",
+    ".bsx .bigor .tt",
+    ".ts-post-image",
+    ".bixbox .releases",
+    ".metas-genres-values",
+    ".eplister#chapterlist",
+    ".eph-num .chapternum",
+    ".chbox",
+    ".bxcl",
+    ".seriestucon",
+    ".seriestuheader h1.entry-title",
+    ".main-info .info-half .titles",
+    ".tsinfo .imptdt",
+    ".ts-breadcrumb",
+    ".headpost",
+    ".chapterbody",
+    ".chnav",
+    "#readerarea"
+  ],
+  "minScore": 60,
+  "usesWebViewMode": false
+}
