@@ -1,6 +1,6 @@
 {
   "name": "@blankgrimoire/theme-alpinegrid",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Grid and reader theme adapter for Alpine.js content sites",
   "blankgrimoire": {
     "adapterId": "theme.alpinegrid",
