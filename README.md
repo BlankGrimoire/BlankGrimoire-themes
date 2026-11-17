@@ -13,6 +13,8 @@ matching theme automatically.
 | `theme.mangant` | `@blankgrimoire/theme-mangant` | Carousel / grid layouts with chapter lists and reader pages | Specific |
 | `theme.serieslist` | `@blankgrimoire/theme-serieslist` | Card-grid libraries with paginated chapter lists, in two header variants | Specific |
 | `theme.astrogrid` | `@blankgrimoire/theme-astrogrid` | Statically generated card grids with a JSON chapter list and page-based reader | Specific |
+| `theme.angulargrid` | `@blankgrimoire/theme-angulargrid` | Angular single-page sites: client-rendered card grid, series metadata, chapter list and image reader | Specific |
+| `theme.alpinegrid` | `@blankgrimoire/theme-alpinegrid` | Alpine.js sites with same-origin JSON: API search and chapter lists, embedded series and reader payloads | Specific |
 
 All adapters are implemented and versioned independently with Changesets.
 
@@ -26,6 +28,13 @@ distinctive set of structural selectors rather than a specific domain:
   two series-header variants.
 - `theme.astrogrid` — the generator meta plus `#series-grid` / `.series-card`,
   `#continue-reading-data` and `[data-page-index]`.
+- `theme.angulargrid` — an Angular root element with the framework version,
+  inlined critical CSS, `.series-card` / `.cl-row` and `img.r-page-img`. The
+  document is assembled by the client, so the adapter asks the app for its
+  hidden web view and extracts the rendered DOM.
+- `theme.alpinegrid` — the Alpine theme-loader binding, a Vite app entry
+  point, the `#comic-data` and `#sv-data` payload scripts, and `.comic-desc`.
+  Content is server-rendered, so no web view is required.
 
 Adapters that read a JSON API on a sibling host declare it as a template
 (`networkHosts: ["api.{host}"]`). No domain is committed: the app expands the
