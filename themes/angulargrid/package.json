@@ -1,0 +1,39 @@
+{
+  "name": "@blankgrimoire/theme-angulargrid",
+  "version": "0.0.0",
+  "description": "Grid and reader theme adapter for Angular single-page content sites",
+  "blankgrimoire": {
+    "adapterId": "theme.angulargrid",
+    "adapterName": "Angular Grid Theme"
+  },
+  "type": "module",
+  "main": "dist/runtime.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "node scripts/prepare-dist.mjs",
+    "typecheck": "tsc -p tsconfig.typecheck.json",
+    "test": "vitest run",
+    "manifest": "pnpm build && node ../../scripts/build-adapter-manifest.mjs"
+  },
+  "keywords": [
+    "blankgrimoire",
+    "theme",
+    "angular",
+    "grid",
+    "reader"
+  ],
+  "author": "BlankGrimoire",
+  "license": "MIT",
+  "devDependencies": {
+    "@blankgrimoire/runtime": "^1.5.0",
+    "@blankgrimoire/testing": "^1.5.0",
+    "@blankgrimoire/types": "^1.5.0",
+    "typescript": "^5.6.0",
+    "vitest": "^1.6.1"
+  },
+  "peerDependencies": {
+    "@blankgrimoire/types": "^1.5.0"
+  }
+}
