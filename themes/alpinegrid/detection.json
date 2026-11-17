@@ -1,0 +1,10 @@
+{
+  "selectors": [
+    "[x-data^=\"Utils.loadTheme\"]",
+    "script#comic-data",
+    "script#sv-data",
+    ".comic-desc"
+  ],
+  "scriptSrc": ["/build/assets/app-"],
+  "minScore": 30
+}

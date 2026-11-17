@@ -1,0 +1,9 @@
+{
+  "selectors": [
+    "app-root[ng-version]",
+    "[data-beasties-container]",
+    ".series-card"
+  ],
+  "minScore": 30,
+  "usesWebViewMode": true
+}
