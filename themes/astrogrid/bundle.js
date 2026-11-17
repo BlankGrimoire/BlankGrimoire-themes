@@ -91,11 +91,17 @@
     }
 
     function seriesKey(ctx, item) {
-        var publicURL = typeof item.public_url === "string" ? item.public_url : "";
+        var publicURL = typeof item.public_url === "string" ? item.public_url.trim() : "";
         if (/^https?:\/\//i.test(publicURL)) {
             return publicURL;
         }
         var origin = originOf(ctx && ctx.baseURL);
+        // The API sends the canonical path without an origin; using it keeps
+        // the key aligned with the URL the site itself links to (and with the
+        // suffix some payloads use to disambiguate a series).
+        if (publicURL.charAt(0) === "/" && origin !== "") {
+            return origin + publicURL;
+        }
         return origin === "" ? String(item.slug || "") : origin + "/comics/" + item.slug;
     }
 
@@ -204,7 +210,13 @@
         var payload = await requestJSON(
             apiURL(ctx, "/api/series/" + encodeURIComponent(slug))
         );
-        var series = payload && payload.series;
+        // The endpoint has returned both shapes: the series at the top level
+        // and wrapped in a `data` envelope (for slugs that also identify a
+        // linked novel, for example). Accept either so one ambiguous slug does
+        // not make the whole series unreadable.
+        var series =
+            (payload && payload.series) ||
+            (payload && payload.data && payload.data.series);
         if (!series) {
             throw new Error("The series payload is missing");
         }

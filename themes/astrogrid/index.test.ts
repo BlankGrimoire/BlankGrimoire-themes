@@ -174,7 +174,7 @@ const searchResults: Record<string, unknown> = {
         slug: 'lorem-ipsum',
         title: 'Lorem Ipsum',
         cover: 'https://cdn.example.org/covers/lorem.jpg',
-        public_url: 'https://example.org/comics/lorem-ipsum-7ba78ec7',
+        public_url: '/comics/lorem-ipsum-7ba78ec7',
       },
       {
         id: 2,
@@ -304,6 +304,11 @@ beforeAll(() => {
           return chaptersPayload;
         }
         if (url.pathname.startsWith('/api/series/')) {
+          // Some slugs also identify a linked novel; the endpoint then wraps
+          // the series in a `data` envelope instead of returning it directly.
+          if (url.pathname.includes('dolor-sit-amet')) {
+            return { data: seriesPayload };
+          }
           return seriesPayload;
         }
         return { data: [], meta: { has_more: false, total: 0 } };
@@ -404,6 +409,20 @@ describe('Astro Grid Theme Adapter', () => {
       'Placeholder synopsis for the fixture. Second paragraph.',
     );
     expect(result.details?.attribution?.siteName).toBeDefined();
+  });
+
+  it('reads a series wrapped in a data envelope', async () => {
+    // Some slugs also identify a linked novel and the endpoint nests the
+    // series under `data`; the adapter must accept both shapes.
+    const result = await harness.testTheme(
+      seriesHTML,
+      'https://example.org/comics/dolor-sit-amet-7ba78ec7',
+      { mangaKey: 'https://example.org/comics/dolor-sit-amet-7ba78ec7' },
+    );
+
+    expect(result.details?.title).toBe('Lorem Ipsum');
+    expect(result.details?.status).toBe('ongoing');
+    expect(result.chapters?.length).toBe(2);
   });
 
   it('drops paid chapters and keeps ISO dates', async () => {
