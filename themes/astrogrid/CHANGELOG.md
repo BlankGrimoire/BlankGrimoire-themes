@@ -1,5 +1,12 @@
 # @blankgrimoire/theme-astrogrid
 
+## 0.1.2
+
+### Patch Changes
+
+- 964f46e: Read the series payload from either API shape and keep the canonical public
+  URL for search results.
+
 ## 0.1.1
 
 ### Patch Changes
